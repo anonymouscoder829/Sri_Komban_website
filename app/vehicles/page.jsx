@@ -20,28 +20,37 @@ export default function VehiclesPage() {
   };
 
   return (
-    <>
+    <div className="tourist-page-wrap">
       {/* ==================== PAGE HERO ==================== */}
-      <section className="page-hero">
-        <div className="page-hero-content">
-          <div className="breadcrumbs">
+      <section className="tourist-sub-hero">
+        <div className="tourist-container text-center">
+          <div className="tourist-breadcrumbs">
             <Link href="/">Home</Link>
             <span>/</span>
             <span>Our Vehicles</span>
           </div>
-          <span className="subheading-pill-light">PREMIUM FLEET & RENTALS</span>
-          <h1>Comfortable, Reliable & Safe Rides<br />From Madurai</h1>
-          <p>Choose from our meticulously maintained fleet of Mahindra XUV 3XO SUVs, Luxury Toyota Innova Crysta, Force Urbania Luxury Vans, and AC Tourist Coaches with veteran chauffeurs.</p>
+          <span className="tourist-pill" style={{ color: '#fef08a', borderColor: 'rgba(254, 240, 138, 0.4)', background: 'rgba(255, 255, 255, 0.1)' }}>
+            PREMIUM FLEET &amp; CAB RENTALS
+          </span>
+          <h1 className="tourist-page-title">Comfortable, Reliable &amp; Safe Rides<br />From Madurai</h1>
+          <p className="tourist-page-subtitle">
+            Choose from our meticulously maintained fleet of Mahindra XUV 3XO SUVs, Luxury Toyota Innova Crysta, Force Urbania Luxury Vans, and AC Tourist Coaches with veteran chauffeurs.
+          </p>
+          <div className="section-cta-center" style={{ marginTop: '20px' }}>
+            <Link href="/contact" className="btn-tourist-primary">
+              Book Your Ride Now →
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* ==================== FLEET CARDS ==================== */}
-      <section className="section" style={{ background: '#ffffff' }}>
-        <div className="section-container">
-          <div className="text-center max-w-750">
-            <span className="subheading-pill">OUR VERIFIED FLEET</span>
-            <h2 className="section-title">The Perfect Ride For Every Group Size</h2>
-            <p className="section-description">
+      <section className="tourist-section" style={{ background: '#ffffff' }}>
+        <div className="tourist-container">
+          <div className="section-head-center">
+            <span className="tourist-pill">OUR VERIFIED FLEET</span>
+            <h2 className="tourist-sec-title">The Perfect Ride For Every Group Size</h2>
+            <p className="tourist-sec-desc">
               Experience our 100% verified, company-owned vehicles with authentic photos below. Whether it's a Madurai Airport transfer, Rameswaram pilgrimage, or hill excursion to Kodaikanal and Munnar, travel in supreme comfort.
             </p>
           </div>
@@ -239,8 +248,6 @@ export default function VehiclesPage() {
           </div>
         </div> 
       </section>
-
-
-    </>
+    </div>
   );
 }
