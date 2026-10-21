@@ -251,6 +251,23 @@ window.bookVehicle = function(vehicleName) {
   window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
 };
 
+/* Switch Vehicle Image via Thumbnails */
+window.switchVehicleImage = function(btn, newSrc) {
+  const card = btn.closest('.vehicle-card');
+  if (!card) return;
+  const mainImg = card.querySelector('.vehicle-img-wrap img');
+  if (mainImg) {
+    mainImg.style.opacity = '0.6';
+    mainImg.src = newSrc;
+    setTimeout(() => {
+      mainImg.style.opacity = '1';
+    }, 150);
+  }
+  const thumbs = card.querySelectorAll('.vehicle-thumb-btn');
+  thumbs.forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+};
+
 /* ==================== FAQ ACCORDION ==================== */
 function initFaqAccordion() {
   const items = document.querySelectorAll('.faq-item');

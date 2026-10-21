@@ -7,7 +7,7 @@ export default function PackageModal({ pkg, onClose }) {
   if (!pkg) return null;
 
   const handleWhatsApp = () => {
-    const text = encodeURIComponent(`Hello Sri Komban Travels, I am interested in booking the "${pkg.title}" package. Please share the complete itinerary and best price!`);
+    const text = encodeURIComponent(`Hello Shanti Travels, I am interested in booking the "${pkg.title}" package. Please share the complete itinerary and best price!`);
     window.open(`https://wa.me/919876543210?text=${text}`, '_blank');
   };
 

@@ -1,770 +1,570 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { PACKAGES_DATA } from '../lib/packagesData';
-import PackageModal from '../components/PackageModal';
-import AssistanceBanner from '../components/AssistanceBanner';
-import TrustBar from '../components/TrustBar';
-import Newsletter from '../components/Newsletter';
+import HeroSection from '../components/HeroSection';
+import OfferCTA from '../components/OfferCTA';
 
 export default function HomePage() {
-  const router = useRouter();
-  const [selectedPkg, setSelectedPkg] = useState(null);
-  const [searchTab, setSearchTab] = useState('places');
-  const [destination, setDestination] = useState('');
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
-  const [travelers, setTravelers] = useState('2 Adults, 0 Child');
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    destination: 'Thailand',
+    travelDate: '',
+    travelers: '2 Adults',
+    tripType: 'Honeymoon / Couple',
+    notes: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
 
-  const destTrackRef = useRef(null);
-  const pkgTrackRef = useRef(null);
-  const reviewsTrackRef = useRef(null);
+  const [destCategory, setDestCategory] = useState('Popular');
 
-  const slideLeft = (ref) => {
-    if (ref.current) {
-      ref.current.scrollBy({ left: -340, behavior: 'smooth' });
+  const destinationsList = [
+    {
+      name: 'Phuket & Phi Phi Islands',
+      country: 'Thailand',
+      tag: 'Adventure & Beaches',
+      image: '/images/thailand.jpg',
+      category: 'Thailand'
+    },
+    {
+      name: 'Ubud & Kuta Escapes',
+      country: 'Bali, Indonesia',
+      tag: 'Tropical & Cultural',
+      image: '/images/bali.jpg',
+      category: 'Bali'
+    },
+    {
+      name: 'Kuala Lumpur & Langkawi',
+      country: 'Malaysia',
+      tag: 'City & Islands',
+      image: '/images/malaysia.jpg',
+      category: 'Malaysia'
+    },
+    {
+      name: 'Havelock & Neil Island',
+      country: 'Andaman Islands',
+      tag: 'Beaches & Coral',
+      image: '/images/andaman.jpg',
+      category: 'Andaman'
+    },
+    {
+      name: 'North & South Coastal Goa',
+      country: 'Goa, India',
+      tag: 'Sunsets & Leisure',
+      image: '/images/goa.jpg',
+      category: 'Goa'
     }
-  };
+  ];
 
-  const slideRight = (ref) => {
-    if (ref.current) {
-      ref.current.scrollBy({ left: 340, behavior: 'smooth' });
+  const homeVehiclesList = [
+    {
+      name: 'Mahindra XUV 3XO',
+      category: 'Compact Luxury SUV',
+      specs: '4-5 Seats • Dual-Zone AC • Skyroof',
+      image: '/images/vehicles/mahindra-xuv3xo.jpg',
+      desc: 'High-safety luxury compact SUV with plush seating and smooth highway performance for outstation trips and airport rides.',
+    },
+    {
+      name: 'Toyota Innova Crysta',
+      category: 'Premium MPV',
+      specs: '6-7 Seats • Captain Chairs • Dual AC',
+      image: '/images/vehicles/toyota-innova-crysta.jpg',
+      desc: 'The benchmark of highway comfort with spacious legroom, reclining captain seats, and generous luggage space for family travel.',
+    },
+    {
+      name: 'Force Urbania',
+      category: 'Executive Luxury Van',
+      specs: '12-16 Seats • Reclining Seats • Panoramic Glass',
+      image: '/images/vehicles/force-urbania.jpg',
+      desc: 'World-class group travel with plush reclining seats, individual AC vents, and massive sealed panoramic windows.',
     }
-  };
+  ];
 
-  const handleQuickWhatsApp = (pkgTitle) => {
-    const msg = `Hi Sri Komban Travels! I'm interested in the "${pkgTitle}" tour package. Please share details and pricing.`;
-    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(msg)}`, '_blank');
-  };
+  const homeGalleryItems = [
+    {
+      title: 'Coral Island & Longtail Boats',
+      loc: 'Phuket, Thailand',
+      img: '/images/thailand.jpg'
+    },
+    {
+      title: 'Ulun Danu Water Temple',
+      loc: 'Bali, Indonesia',
+      img: '/images/bali.jpg'
+    },
+    {
+      title: 'Misty Tea Hills',
+      loc: 'Munnar, Kerala',
+      img: '/images/kerala.jpg'
+    },
+    {
+      title: 'Radhanagar White Sands',
+      loc: 'Havelock, Andaman',
+      img: '/images/andaman.jpg'
+    },
+    {
+      title: 'Historic Gopuram Heritage',
+      loc: 'Meenakshi Temple, Madurai',
+      img: '/images/madurai-heritage.jpg'
+    },
+    {
+      title: 'Petronas Skyline at Dusk',
+      loc: 'Kuala Lumpur, Malaysia',
+      img: '/images/malaysia.jpg'
+    },
+    {
+      title: 'Sunset Waves & Coastline',
+      loc: 'Calangute, Goa',
+      img: '/images/goa.jpg'
+    },
+    {
+      title: 'Executive Luxury Van',
+      loc: 'Force Urbania Fleet',
+      img: '/images/vehicles/force-urbania.jpg'
+    }
+  ];
 
-  const handleSearchSubmit = (e) => {
+  const homeTestimonials = [
+    {
+      id: 1,
+      name: 'Priya & Vikram',
+      location: 'Chennai',
+      trip: 'Bali Luxury Honeymoon',
+      avatar: '/images/avatar1.jpg',
+      quote: 'Amazing experience with Sri Komban Travels! Our private pool villa in Ubud, sunset dinner cruise, and transfers were coordinated seamlessly. Best vacation we have ever had!'
+    },
+    {
+      id: 2,
+      name: 'Dr. Senthil Nathan & Family',
+      location: 'Madurai',
+      trip: 'Temple Pilgrimage Circuit',
+      avatar: '/images/avatar2.jpg',
+      quote: 'We booked the Toyota Innova Crysta for our parents’ pilgrimage. The chauffeur was extremely polite, arrived early, and drove with great care. Clean car and honest billing.'
+    },
+    {
+      id: 3,
+      name: 'Rajesh Kumar & Friends',
+      location: 'Coimbatore',
+      trip: 'Kodaikanal Weekend Hills',
+      avatar: '/images/avatar3.jpg',
+      quote: 'Took the Mahindra XUV 3XO for our Kodaikanal ghat trip. Chilled dual AC, skyroof for mountain views, and punchy performance. Will always book with Sri Komban Travels!'
+    }
+  ];
+
+  const visibleDestinations = destCategory === 'Popular' 
+    ? destinationsList 
+    : destinationsList.filter(d => d.category === destCategory);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (destination) {
-      router.push(`/packages?dest=${encodeURIComponent(destination)}`);
-    } else {
-      router.push('/packages');
+    if (!formData.name || !formData.phone) {
+      alert('Please fill in your name and phone number.');
+      return;
     }
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 8000);
   };
 
-  const featuredPackages = Object.values(PACKAGES_DATA).slice(0, 6);
+  const handleWhatsAppInquiry = (planName) => {
+    const message = `Hi Sri Komban Travels, I'm interested in planning a trip for ${planName}. Please share details!`;
+    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const handleVehicleWhatsAppInquiry = (vehicleName) => {
+    const message = `Hi Sri Komban Travels, I'm interested in booking / hiring the ${vehicleName} from Madurai. Please share availability and tariff quote!`;
+    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const handleFormWhatsApp = () => {
+    const message = `*Trip Enquiry — Sri Komban Travels*\n\n` +
+      `*Name:* ${formData.name || 'Traveler'}\n` +
+      `*Phone:* ${formData.phone || 'N/A'}\n` +
+      `*Email:* ${formData.email || 'N/A'}\n` +
+      `*Destination:* ${formData.destination}\n` +
+      `*Travel Date:* ${formData.travelDate || 'Flexible'}\n` +
+      `*Travellers:* ${formData.travelers}\n` +
+      `*Trip Type:* ${formData.tripType}\n` +
+      `*Notes:* ${formData.notes || 'Looking for trip options.'}`;
+    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <>
-      {/* ==================== SECTION 1 — HERO ==================== */}
-      <section className="hero-section" id="home">
-        <div className="hero-backdrop" style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}></div>
-        <div className="hero-overlay"></div>
+    <div className="tourist-landing-wrapper">
+      {/* ========================================================
+          SECTION 1 — HERO
+          ======================================================== */}
+      <HeroSection />
 
-        <div className="hero-content-wrapper">
-          <div className="hero-human-badge">
-            <span>📍 Handcrafted in Madurai • 12+ Years Trusted • 24/7 Ground Assistance</span>
-          </div>
-
-          <div className="hero-badge">
-            <span>EXPLORE THE WORLD</span>
-          </div>
-
-          <h1 className="hero-title">
-            Find our dream <br />
-            <span className="hero-script">Trip</span> on Sri Komban Travels
-          </h1>
-
-          <p className="hero-subtitle-primary">
-            Dream It. Plan It. Travel It. ✈️
-          </p>
-
-          <p className="hero-description">
-            From Madurai to the world — let’s turn your travel dreams into unforgettable journeys. Discover exciting destinations, thoughtfully planned tour packages, and personalized travel experiences with Sri Komban Travels & Tourism. Whether you're dreaming of Thailand, Bali, Malaysia, Andaman, Goa, or a getaway closer to home, we're here to help you plan the journey your way.
-          </p>
-
-          <div className="hero-actions">
-            <Link href="/packages" className="btn btn-primary" id="heroExploreBtn">
-              <span>Explore Packages</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="btn-icon">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </Link>
-            <Link href="/contact" className="btn btn-glass" id="heroPlanBtn">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="btn-icon-play">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-              <span>Plan My Trip</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Right indicator dots */}
-        <div className="hero-slider-indicators">
-          <span className="indicator active"></span>
-          <span className="indicator"></span>
-          <span className="indicator"></span>
-          <span className="indicator"></span>
-        </div>
-
-        {/* FLOATING SEARCH BAR */}
-        <div className="search-card-container">
-          <div className="search-card" id="searchWidget">
-            <div className="search-tabs">
-              <button 
-                type="button"
-                className={`search-tab ${searchTab === 'places' ? 'active' : ''}`}
-                onClick={() => setSearchTab('places')}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>Places</span>
-              </button>
-              <button 
-                type="button"
-                className={`search-tab ${searchTab === 'activities' ? 'active' : ''}`}
-                onClick={() => setSearchTab('activities')}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"></path></svg>
-                <span>Activities</span>
-              </button>
-              <button 
-                type="button"
-                className={`search-tab ${searchTab === 'packages' ? 'active' : ''}`}
-                onClick={() => setSearchTab('packages')}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>Packages</span>
-              </button>
-              <button 
-                type="button"
-                className={`search-tab ${searchTab === 'deals' ? 'active' : ''}`}
-                onClick={() => setSearchTab('deals')}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <span>Deals</span>
-              </button>
-            </div>
-
-            <form className="search-fields-grid" onSubmit={handleSearchSubmit}>
-              <div className="search-field">
-                <div className="field-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                </div>
-                <div className="field-inputs">
-                  <label>Where are you going?</label>
-                  <select 
-                    value={destination} 
-                    onChange={(e) => setDestination(e.target.value)}
-                    className="clean-select"
-                  >
-                    <option value="">Search destinations</option>
-                    <option value="Thailand">Thailand 🇹🇭</option>
-                    <option value="Bali">Bali 🌴</option>
-                    <option value="Malaysia">Malaysia 🇲🇾</option>
-                    <option value="Andaman">Andaman 🏝️</option>
-                    <option value="Goa">Goa 🏖️</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="search-divider"></div>
-
-              <div className="search-field">
-                <div className="field-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </div>
-                <div className="field-inputs">
-                  <label>Check In</label>
-                  <input 
-                    type="date" 
-                    value={checkIn}
-                    onChange={(e) => setCheckIn(e.target.value)}
-                    className="clean-input" 
-                  />
-                </div>
-              </div>
-
-              <div className="search-divider"></div>
-
-              <div className="search-field">
-                <div className="field-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </div>
-                <div className="field-inputs">
-                  <label>Check Out</label>
-                  <input 
-                    type="date" 
-                    value={checkOut}
-                    onChange={(e) => setCheckOut(e.target.value)}
-                    className="clean-input" 
-                  />
-                </div>
-              </div>
-
-              <div className="search-divider"></div>
-
-              <div className="search-field">
-                <div className="field-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                </div>
-                <div className="field-inputs">
-                  <label>Travelers</label>
-                  <select 
-                    value={travelers} 
-                    onChange={(e) => setTravelers(e.target.value)}
-                    className="clean-select"
-                  >
-                    <option value="2 Adults, 0 Child">2 Adults, 0 Child</option>
-                    <option value="1 Adult">1 Adult</option>
-                    <option value="2 Adults, 1 Child">2 Adults, 1 Child</option>
-                    <option value="2 Adults, 2 Child">2 Adults, 2 Child</option>
-                    <option value="Group (4+ Travelers)">Group (4+ Travelers)</option>
-                  </select>
-                </div>
-              </div>
-
-              <button type="submit" className="search-submit-btn" id="searchSubmitBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <span>Search</span>
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== SECTION 2 — POPULAR DESTINATIONS (BUTTER SLIDING UI) ==================== */}
-      <section className="section popular-destinations-section" id="destinations">
-        <div className="section-container">
-          <div className="section-header-flex">
-            <div className="section-title-wrap">
-              <span className="subheading-pill">DESTINATION SPOTLIGHT</span>
-              <h2 className="section-title">
-                Popular Destinations
-                <span className="wavy-decoration">
-                  <svg viewBox="0 0 55 10" fill="none">
-                    <path d="M1 5C5 1 9 9 13 5C17 1 21 9 25 5C29 1 33 9 37 5C41 1 45 9 49 5C51 3 53 4 54 5" stroke="#00A896" strokeWidth="2.5" strokeLinecap="round"/>
-                  </svg>
-                </span>
-              </h2>
-              <p className="section-subtitle">
-                A sunset in Bali. A beach morning in Andaman. A city adventure in Thailand. Slide to discover handcrafted holiday escapes with direct flight coordination from Madurai.
+      {/* ========================================================
+          SECTION 2 — TOP DESTINATIONS
+          ======================================================== */}
+      <section className="tourist-section top-dest-section" id="destinations">
+        <div className="tourist-container">
+          {/* Section Heading & Subtitle aligned with button */}
+          <div className="top-dest-head-wrap dest-filter-bar">
+            <div>
+              <h2 className="top-dest-main-title">Top Destinations</h2>
+              <p className="top-dest-main-desc">
+                What If Your Next Favourite Memory Is Waiting Somewhere Else?
               </p>
             </div>
-            
-            <div className="section-header-actions">
-              <div className="slider-nav-btns">
-                <button className="slider-arrow-btn" onClick={() => slideLeft(destTrackRef)} aria-label="Slide Left">‹</button>
-                <button className="slider-arrow-btn" onClick={() => slideRight(destTrackRef)} aria-label="Slide Right">›</button>
-              </div>
-              <Link href="/packages" className="view-all-link">
-                <span>View all destinations</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </Link>
-            </div>
+            <Link href="/destinations" className="btn-explore-all-pill">
+              <span>Explore all destinations</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="explore-all-arrow">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
 
-          <div className="butter-slider-track" ref={destTrackRef}>
-            <div className="destination-card butter-dest-card" onClick={() => router.push('/packages?dest=Andaman')}>
-              <img src="/images/andaman.jpg" alt="Andaman Island Escape" className="dest-card-img" />
-              <div className="dest-glass-badge">
-                <span className="dest-price-chip">From ₹21,999</span>
-                <span className="dest-duration-chip">4N / 5D</span>
-              </div>
-              <div className="dest-card-overlay">
-                <div className="dest-card-info">
-                  <h3 className="dest-card-title">Andaman 🏝️</h3>
-                  <p className="dest-card-sub">Havelock & Radhanagar Beach</p>
+          {/* Vertical Destination Cards Grid */}
+          <div className="top-dest-cards-grid">
+            {visibleDestinations.map((dest) => (
+              <div 
+                key={dest.name} 
+                className="top-dest-card" 
+                onClick={() => handleWhatsAppInquiry(dest.name)}
+                title={`Enquire for ${dest.name}`}
+              >
+                <div className="dest-card-media">
+                  <img src={dest.image} alt={dest.name} className="dest-card-img" />
+                  <span className="dest-card-badge">{dest.tag}</span>
                 </div>
-                <div className="dest-pin-icon">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-                </div>
-              </div>
-            </div>
-
-            <div className="destination-card butter-dest-card" onClick={() => router.push('/packages?dest=Thailand')}>
-              <img src="/images/thailand.jpg" alt="Thailand Longtail Boat Bay" className="dest-card-img" />
-              <div className="dest-glass-badge">
-                <span className="dest-price-chip">From ₹28,499</span>
-                <span className="dest-duration-chip">5N / 6D</span>
-              </div>
-              <div className="dest-card-overlay">
-                <div className="dest-card-info">
-                  <h3 className="dest-card-title">Thailand 🇹🇭</h3>
-                  <p className="dest-card-sub">Bangkok & Coral Island Pattaya</p>
-                </div>
-                <div className="dest-pin-icon">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                <div className="dest-card-meta">
+                  <h3 className="dest-card-title">{dest.name}</h3>
+                  <p className="dest-card-country">{dest.country}</p>
                 </div>
               </div>
-            </div>
-
-            <div className="destination-card butter-dest-card" onClick={() => router.push('/packages?dest=Bali')}>
-              <img src="/images/bali.jpg" alt="Bali Water Temple" className="dest-card-img" />
-              <div className="dest-glass-badge">
-                <span className="dest-price-chip">From ₹34,999</span>
-                <span className="dest-duration-chip">5N / 6D</span>
-              </div>
-              <div className="dest-card-overlay">
-                <div className="dest-card-info">
-                  <h3 className="dest-card-title">Bali 🌴</h3>
-                  <p className="dest-card-sub">Ubud Waterfalls & Kuta Sunset</p>
-                </div>
-                <div className="dest-pin-icon">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-                </div>
-              </div>
-            </div>
-
-            <div className="destination-card butter-dest-card" onClick={() => router.push('/packages?dest=Malaysia')}>
-              <img src="/images/malaysia.jpg" alt="Malaysia Kuala Lumpur Twin Towers" className="dest-card-img" />
-              <div className="dest-glass-badge">
-                <span className="dest-price-chip">From ₹24,999</span>
-                <span className="dest-duration-chip">4N / 5D</span>
-              </div>
-              <div className="dest-card-overlay">
-                <div className="dest-card-info">
-                  <h3 className="dest-card-title">Malaysia 🇲🇾</h3>
-                  <p className="dest-card-sub">Twin Towers & Genting Highlands</p>
-                </div>
-                <div className="dest-pin-icon">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-                </div>
-              </div>
-            </div>
-
-            <div className="destination-card butter-dest-card" onClick={() => router.push('/packages?dest=Goa')}>
-              <img src="/images/goa.jpg" alt="Goa Sunset Beach" className="dest-card-img" />
-              <div className="dest-glass-badge">
-                <span className="dest-price-chip">From ₹14,499</span>
-                <span className="dest-duration-chip">4N / 5D</span>
-              </div>
-              <div className="dest-card-overlay">
-                <div className="dest-card-info">
-                  <h3 className="dest-card-title">Goa 🏖️</h3>
-                  <p className="dest-card-sub">Beaches, Nightlife & Cruise</p>
-                </div>
-                <div className="dest-pin-icon">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ==================== SECTION 3 — TRIP MOODS ==================== */}
-      <section className="section trip-moods-section" id="trip-moods">
-        <div className="section-container">
-          <div className="text-center max-w-750">
-            <span className="subheading-pill">FIND YOUR VIBE</span>
-            <h2 className="section-title">Forget the Package. What Kind of Journey Are You Looking For?</h2>
-            <p className="section-description">
-              Not every traveller wants the same kind of holiday. Whether you're planning a relaxing beach escape, a romantic honeymoon, a family holiday, an adventure with friends, or your first international trip from Madurai — choose what feels right for you.
-            </p>
-          </div>
-
-          <div className="mood-cards-grid">
-            <div className="mood-card">
-              <div className="mood-icon-wrapper">🌊</div>
-              <h3 className="mood-title">I NEED A BREAK</h3>
-              <p className="mood-tags">Beach • Relaxation • Nature</p>
-              <p className="mood-desc">For travellers who want to slow down, switch off and enjoy beautiful beaches, peaceful stays and refreshing escapes.</p>
-              <div className="mood-explore-tags">
-                <span>Explore:</span>
-                <Link href="/packages?dest=Andaman">Andaman</Link> • 
-                <Link href="/packages?dest=Goa">Goa</Link> • 
-                <Link href="/packages?dest=Bali">Bali</Link>
-              </div>
-              <Link href="/packages?cat=beach" className="mood-btn">Explore Relaxing Getaways →</Link>
-            </div>
-
-            <div className="mood-card mood-featured">
-              <div className="featured-badge">Top Pick for Couples</div>
-              <div className="mood-icon-wrapper">❤️</div>
-              <h3 className="mood-title">I WANT SOMETHING ROMANTIC</h3>
-              <p className="mood-tags">Couples • Honeymoon • Sunset</p>
-              <p className="mood-desc">Planning a honeymoon or a romantic escape? Discover destinations made for couples, memorable experiences and time together.</p>
-              <div className="mood-explore-tags">
-                <span>Explore:</span>
-                <Link href="/packages?dest=Bali">Bali</Link> • 
-                <Link href="/packages?dest=Thailand">Thailand</Link> • 
-                <Link href="/packages?dest=Andaman">Andaman</Link>
-              </div>
-              <Link href="/packages?cat=romantic" className="mood-btn">Explore Romantic Escapes →</Link>
-            </div>
-
-            <div className="mood-card">
-              <div className="mood-icon-wrapper">👨‍👩‍👧</div>
-              <h3 className="mood-title">I WANT FAMILY TIME</h3>
-              <p className="mood-tags">Family • Fun • Memories</p>
-              <p className="mood-desc">Because the best holidays are the ones everyone enjoys. Explore family-friendly destinations and thoughtfully planned holiday experiences.</p>
-              <div className="mood-explore-tags">
-                <span>Explore:</span>
-                <Link href="/packages?dest=Goa">Goa</Link> • 
-                <Link href="/packages?dest=Andaman">Andaman</Link> • 
-                <Link href="/packages?dest=Malaysia">Malaysia</Link>
-              </div>
-              <Link href="/packages?cat=family" className="mood-btn">Find Family Getaways →</Link>
-            </div>
-
-            <div className="mood-card">
-              <div className="mood-icon-wrapper">🥳</div>
-              <h3 className="mood-title">I WANT AN ADVENTURE</h3>
-              <p className="mood-tags">Friends • Experiences • Exploration</p>
-              <p className="mood-desc">Travelling with your favourite people? Discover exciting destinations, new experiences and trips designed for unforgettable group memories.</p>
-              <div className="mood-explore-tags">
-                <span>Explore:</span>
-                <Link href="/packages?dest=Thailand">Thailand</Link> • 
-                <Link href="/packages?dest=Malaysia">Malaysia</Link> • 
-                <Link href="/packages?dest=Goa">Goa</Link>
-              </div>
-              <Link href="/packages?cat=group" className="mood-btn">Find My Adventure →</Link>
-            </div>
-
-            <div className="mood-card">
-              <div className="mood-icon-wrapper">🌍</div>
-              <h3 className="mood-title">I WANT TO GO ABROAD</h3>
-              <p className="mood-tags">International • New Places • New Experiences</p>
-              <p className="mood-desc">Ready to travel beyond India? Explore international holiday destinations and start planning your next overseas journey from Madurai.</p>
-              <div className="mood-explore-tags">
-                <span>Explore:</span>
-                <Link href="/packages?dest=Thailand">Thailand</Link> • 
-                <Link href="/packages?dest=Malaysia">Malaysia</Link> • 
-                <Link href="/packages?dest=Bali">Bali</Link>
-              </div>
-              <Link href="/packages?cat=international" className="mood-btn">Explore International Trips →</Link>
-            </div>
-          </div>
-
-          <div className="mood-callout-banner">
-            <div className="callout-text">
-              <h3>Still Not Sure Where to Go?</h3>
-              <p>Tell us your travel dates, budget, interests and who you're travelling with. We'll help you discover a journey that fits.</p>
-            </div>
-            <Link href="/contact" className="btn btn-primary">Find My Journey →</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== SECTION 4 — FEATURED TOUR PACKAGES (BUTTER SLIDING UI) ==================== */}
-      <section className="section tour-packages-section" id="packages">
-        <div className="section-container">
-          <div className="section-header-flex">
-            <div className="section-title-wrap">
-              <span className="subheading-pill">CURATED ITINERARIES</span>
-              <h2 className="section-title">
-                Featured Tour Packages
-                <span className="wavy-decoration">
-                  <svg viewBox="0 0 55 10" fill="none">
-                    <path d="M1 5C5 1 9 9 13 5C17 1 21 9 25 5C29 1 33 9 37 5C41 1 45 9 49 5C51 3 53 4 54 5" stroke="#00A896" strokeWidth="2.5" strokeLinecap="round"/>
-                  </svg>
-                </span>
-              </h2>
-              <p className="section-subtitle">
-                Your Kind of Journey. Your Kind of Package. Handcrafted from Madurai with premium stays, private cab transfers, daily breakfast, and local concierge support.
+      {/* ========================================================
+          SECTION 3 — OUR VERIFIED VEHICLES & FLEET
+          ======================================================== */}
+      <section className="tourist-section top-dest-section" id="vehicles">
+        <div className="tourist-container">
+          {/* Section Heading & Subtitle aligned horizontally with button */}
+          <div className="top-dest-head-wrap dest-filter-bar">
+            <div>
+              <h2 className="top-dest-main-title">Our Verified Fleet</h2>
+              <p className="top-dest-main-desc">
+                Company-owned, sanitized, and chauffeur-driven rides for comfortable journeys from Madurai.
               </p>
             </div>
-
-            <div className="section-header-actions">
-              <div className="slider-nav-btns">
-                <button className="slider-arrow-btn" onClick={() => slideLeft(pkgTrackRef)} aria-label="Slide Left">‹</button>
-                <button className="slider-arrow-btn" onClick={() => slideRight(pkgTrackRef)} aria-label="Slide Right">›</button>
-              </div>
-              <Link href="/packages" className="view-all-link">
-                <span>View all packages</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </Link>
-            </div>
+            <Link href="/vehicles" className="btn-explore-all-pill">
+              <span>View all vehicles</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="explore-all-arrow">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
 
-          <div className="butter-slider-track" ref={pkgTrackRef}>
-            {featuredPackages.map((pkg) => (
-              <article key={pkg.id} className="package-card butter-pkg-card">
-                <div className="pkg-img-wrap">
-                  <img src={pkg.image} alt={pkg.title} />
-                  <span className="pkg-badge badge-red">{pkg.discount}</span>
-                  <span className="pkg-rating-pill">★ 4.9 (120+ Reviews)</span>
+          {/* Compact 4-Column Vehicles Grid */}
+          <div className="home-vehicles-grid">
+            {homeVehiclesList.map((veh) => (
+              <div key={veh.name} className="home-vehicle-card">
+                <div className="home-vehicle-media">
+                  <img src={veh.image} alt={veh.name} className="home-vehicle-img" />
+                  <span className="home-vehicle-badge">{veh.category}</span>
                 </div>
-                <div className="pkg-body">
-                  <h3 className="pkg-title">{pkg.title}</h3>
-                  <p className="pkg-bestfor">{pkg.bestFor}</p>
-
-                  <div className="pkg-inclusions-chips">
-                    <span>✈️ Flights</span>
-                    <span>🏨 4★ Resort</span>
-                    <span>🚗 AC Cab</span>
-                    <span>🍳 Breakfast</span>
-                  </div>
-
-                  <div className="pkg-meta">
-                    <span className="pkg-duration">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                      {pkg.duration}
-                    </span>
-                    <div className="pkg-price-wrap">
-                      <span className="pkg-price">{pkg.price}</span>
-                      <span className="pkg-old-price">{pkg.oldPrice}</span>
-                    </div>
-                  </div>
-                  <p className="pkg-description">{pkg.overview}</p>
-
-                  <div className="pkg-actions-group">
-                    <button className="btn btn-outline-teal btn-pkg-action" onClick={() => setSelectedPkg(pkg)}>
-                      View Details →
-                    </button>
-                    <button className="btn btn-whatsapp-mini" onClick={() => handleQuickWhatsApp(pkg.title)} title="Get WhatsApp Quote">
-                      💬 WhatsApp
-                    </button>
-                  </div>
+                <div className="home-vehicle-body">
+                  <h3 className="home-vehicle-title">{veh.name}</h3>
+                  <div className="home-vehicle-specs">{veh.specs}</div>
+                  <p className="home-vehicle-desc">{veh.desc}</p>
+                  <button 
+                    onClick={() => handleVehicleWhatsAppInquiry(veh.name)} 
+                    className="btn-feat-pkg-wa"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="wa-btn-icon">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                    </svg>
+                    <span>Enquire on WhatsApp</span>
+                  </button>
                 </div>
-              </article>
+              </div>
             ))}
           </div>
 
-          <div className="text-center mt-40">
-            <Link href="/packages" className="btn btn-primary btn-lg">Browse All 15+ Tour Packages →</Link>
-          </div>
+          {/* Wherever You Want to Go CTA Banner */}
+          <OfferCTA 
+            badge="BEST PRICE GUARANTEE"
+            title="Wherever You Want to Go, We Can Do That at the Best Offer!"
+            desc="Planning an outstation trip, family pilgrimage, or airport transfer? Tell us your pickup point and destination — we provide the best competitive tariff with verified chauffeur service."
+            waText="Hi Sri Komban Travels, I want to book a vehicle at the best offer!"
+            secondaryBtnText="View Fleet Details →"
+            secondaryBtnHref="/vehicles"
+          />
         </div>
       </section>
-
-      {/* ==================== FLEET TEASER ==================== */}
-      <section className="section" style={{ background: '#ffffff', paddingTop: '40px' }}>
-        <div className="section-container">
-          <div className="section-header-flex">
-            <div className="section-title-wrap">
-              <span className="subheading-pill">TRAVEL FLEET</span>
-              <h2 className="section-title">
-                Our Travel Vehicles & Rental Fleet
-                <span className="wavy-decoration">
-                  <svg viewBox="0 0 55 10" fill="none"><path d="M1 5C5 1 9 9 13 5C17 1 21 9 25 5C29 1 33 9 37 5C41 1 45 9 49 5C51 3 53 4 54 5" stroke="#00A896" strokeWidth="2.5" strokeLinecap="round"/></svg>
-                </span>
-              </h2>
-              <p className="section-subtitle">
-                Heading on an outstation trip from Madurai to Rameswaram, Kodaikanal, Munnar or Kanyakumari? Travel in total comfort with our verified chauffeurs and premium AC vehicles.
+      {/* ========================================================
+          SECTION 4 — VISUAL TRAVEL GALLERY
+          ======================================================== */}
+      <section className="tourist-section tourist-section-tinted" id="gallery">
+        <div className="tourist-container">
+          {/* Section Heading & Subtitle aligned horizontally with button */}
+          <div className="top-dest-head-wrap dest-filter-bar">
+            <div>
+              <h2 className="top-dest-main-title">Captured Travel Moments</h2>
+              <p className="top-dest-main-desc">
+                Real glimpses of scenic destinations, happy travelers, and our verified fleet.
               </p>
             </div>
-            <Link href="/vehicles" className="view-all-link">
-              <span>Explore full fleet & rates</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <Link href="/gallery" className="btn-explore-all-pill">
+              <span>View full gallery</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="explore-all-arrow">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
 
-          <div className="fleet-grid">
-            <div className="vehicle-card">
-              <div className="vehicle-img-wrap">
-                <img src="/images/innova.jpg" alt="Toyota Innova Crysta" />
-                <span className="vehicle-badge">Most Popular SUV</span>
-              </div>
-              <div className="vehicle-body">
-                <h3 className="vehicle-title">Toyota Innova Crysta</h3>
-                <p className="vehicle-models">6-7 Seater • Dual AC • Supreme Legroom</p>
-                <p className="vehicle-desc">The #1 choice for family vacations and hill stations like Kodaikanal & Munnar. Premium bucket seats with high luggage capacity.</p>
-                <div className="vehicle-pricing-bar">
-                  <div className="price-tag-wrap">
-                    <span>Starting from</span>
-                    <strong>₹18 / km</strong>
-                  </div>
-                  <Link href="/vehicles" className="btn btn-outline-teal">View Details & Book →</Link>
+          {/* 8-Photo Masonry Grid */}
+          <div className="gallery-masonry-grid" style={{ marginTop: '28px' }}>
+            {homeGalleryItems.map((item, idx) => (
+              <div key={idx} className="gallery-card">
+                <img src={item.img} alt={item.title} className="gallery-img" loading="lazy" />
+                <div className="gallery-card-overlay">
+                  <span className="gallery-item-loc">📍 {item.loc}</span>
+                  <h4 className="gallery-item-title">{item.title}</h4>
                 </div>
               </div>
-            </div>
-
-            <div className="vehicle-card">
-              <div className="vehicle-img-wrap">
-                <img src="/images/tempo.jpg" alt="Luxury Tempo Traveller" />
-                <span className="vehicle-badge">Ideal for Groups</span>
-              </div>
-              <div className="vehicle-body">
-                <h3 className="vehicle-title">Luxury Force Tempo Traveller</h3>
-                <p className="vehicle-models">12 / 14 / 18 / 20 Seater AC</p>
-                <p className="vehicle-desc">Pushback luxury leather seats, individual AC vents, and LED TV system. Perfect for pilgrimage circuits and family celebrations.</p>
-                <div className="vehicle-pricing-bar">
-                  <div className="price-tag-wrap">
-                    <span>Starting from</span>
-                    <strong>₹24 / km</strong>
-                  </div>
-                  <Link href="/vehicles" className="btn btn-outline-teal">View Details & Book →</Link>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ==================== ASSISTANCE BANNER ==================== */}
-      <AssistanceBanner />
+      {/* ========================================================
+          SECTION 5 — TESTIMONIALS
+          ======================================================== */}
+      <section className="tourist-section" id="testimonials">
+        <div className="tourist-container">
+          {/* Section Heading & Subtitle aligned horizontally with button */}
+          <div className="top-dest-head-wrap dest-filter-bar">
+            <div>
+              <h2 className="top-dest-main-title">What Our Travelers Say</h2>
+              <p className="top-dest-main-desc">
+                Genuine stories and experiences from families, couples, and groups who travelled with us.
+              </p>
+            </div>
+            <Link href="/testimonials" className="btn-explore-all-pill">
+              <span>Read all reviews</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="explore-all-arrow">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
 
-      {/* ==================== SERVICES & APPROACH ==================== */}
-      <section className="section services-section" id="services">
-        <div className="section-container">
-          <div className="text-center max-w-750">
-            <span className="subheading-pill">✨ WHAT WE OFFER</span>
-            <h2 className="section-title">More Than a Trip. We Help You Put the Journey Together.</h2>
-            <p className="section-description">
-              Whether you're travelling with family, planning a honeymoon, travelling with friends, or heading abroad for the first time, Sri Komban Travels & Tourism helps make the planning process simpler.
+          {/* 3-Column Testimonials Grid */}
+          <div className="testimonials-grid" style={{ marginTop: '28px' }}>
+            {homeTestimonials.map((t) => (
+              <div key={t.id} className="testimonial-box">
+                <div className="testi-stars">★★★★★</div>
+                <p className="testi-quote">"{t.quote}"</p>
+                <div className="testi-author-row">
+                  <img src={t.avatar} alt={t.name} className="testi-avatar" />
+                  <div>
+                    <h4 className="testi-author-name">{t.name}</h4>
+                    <span className="testi-trip-tag">{t.trip} • {t.location}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================
+          SECTION 7 — CONTACT US / PLAN YOUR TRIP
+          ======================================================== */}
+      <section className="tourist-section tourist-section-tinted" id="plan-trip">
+        <div className="tourist-container">
+          <div className="section-head-center">
+            <h2 className="tourist-sec-title">Tell Us Where You Want to Go.</h2>
+            <p className="tourist-sec-desc">
+              Your next journey could be a relaxing beach escape, a romantic honeymoon, a family holiday or an international adventure.
+              <br />
+              Thailand? Malaysia? Bali? Andaman? Goa? Or somewhere completely different?
+              <br />
+              Tell us what you're planning. Our team will help you explore the right travel options for your journey.
+              <br />
+              Let's turn your travel idea into a plan.
             </p>
           </div>
 
-          <div className="services-grid">
-            <div className="service-box">
-              <div className="service-icon">🧭</div>
-              <h3>Personalized Trip Planning</h3>
-              <p>Your trip doesn't have to follow a standard template. We help plan journeys around your destination, travel preferences and requirements.</p>
-            </div>
-            <div className="service-box">
-              <div className="service-icon">✈️</div>
-              <h3>Domestic & International Travel</h3>
-              <p>From Indian getaways to international destinations like Thailand, Malaysia, and Bali, explore travel options that match your plans.</p>
-            </div>
-            <div className="service-box">
-              <div className="service-icon">🗺️</div>
-              <h3>Customized Itineraries</h3>
-              <p>Want a trip that feels different from a regular package? We help create customized travel plans around your interests and schedule.</p>
-            </div>
-            <div className="service-box">
-              <div className="service-icon">👨‍👩‍👧</div>
-              <h3>Family & Group Travel</h3>
-              <p>Planning for family or travelling with a group? We help coordinate your trip around your group's travel needs and budget.</p>
-            </div>
-            <div className="service-box">
-              <div className="service-icon">🏨</div>
-              <h3>Travel Assistance</h3>
-              <p>From trip planning to travel coordination, get support throughout the process so you can focus more on enjoying the journey.</p>
-            </div>
-            <div className="service-box">
-              <div className="service-icon">💬</div>
-              <h3>Travel Guidance</h3>
-              <p>Not sure where to go or what type of trip suits you? Share your requirements and get guidance before you make your travel plans.</p>
-            </div>
-          </div>
-
-          {/* 4-Step Approach */}
-          <div className="approach-container">
-            <div className="approach-header text-center">
-              <span className="subheading-pill">OUR APPROACH</span>
-              <h3 className="approach-title">Understand. Plan. Personalize. Experience.</h3>
-            </div>
-            <div className="approach-steps-grid">
-              <div className="step-card">
-                <span className="step-num">01</span>
-                <h4>💬 Understand</h4>
-                <p>We listen to what you want from your trip, your budget, and your preferences.</p>
-              </div>
-              <div className="step-card">
-                <span className="step-num">02</span>
-                <h4>🗺️ Plan</h4>
-                <p>We help shape your destination, itinerary, flights, and travel requirements.</p>
-              </div>
-              <div className="step-card">
-                <span className="step-num">03</span>
-                <h4>✨ Personalize</h4>
-                <p>Because your journey shouldn't always feel like everyone else's template.</p>
-              </div>
-              <div className="step-card">
-                <span className="step-num">04</span>
-                <h4>🌍 Experience</h4>
-                <p>The goal is simple — create a seamless, unforgettable journey you'll remember for years.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== SECTION 7 — TESTIMONIALS (BUTTER SLIDING UI) ==================== */}
-      <section className="section testimonials-section" id="reviews">
-        <div className="section-container">
-          <div className="section-header-flex">
-            <div className="section-title-wrap">
-              <span className="subheading-pill">REAL EXPERIENCES</span>
-              <h2 className="section-title">
-                What Our Travelers Say
-                <span className="wavy-decoration">
-                  <svg viewBox="0 0 55 10" fill="none">
-                    <path d="M1 5C5 1 9 9 13 5C17 1 21 9 25 5C29 1 33 9 37 5C41 1 45 9 49 5C51 3 53 4 54 5" stroke="#00A896" strokeWidth="2.5" strokeLinecap="round"/>
-                  </svg>
-                </span>
-              </h2>
-              <p className="section-subtitle">
-                Over 1,200+ families and honeymooners from Madurai and across Tamil Nadu have trusted Sri Komban Travels for their dream getaways.
+          <div className="contact-card-grid">
+            {/* Left Col: Contact Info & Support */}
+            <div className="contact-details-box">
+              <h3 className="contact-box-title">Sri Komban Travels &amp; Tourism</h3>
+              <p className="contact-box-desc">
+                Planning a trip from Madurai? You don't need to have the entire trip figured out before contacting us. Tell us your budget, travel dates, who you're travelling with and the kind of experience you want. We'll help you explore the possibilities.
               </p>
-            </div>
-            
-            <div className="slider-nav-btns">
-              <button className="slider-arrow-btn" onClick={() => slideLeft(reviewsTrackRef)} aria-label="Slide Left">‹</button>
-              <button className="slider-arrow-btn" onClick={() => slideRight(reviewsTrackRef)} aria-label="Slide Right">›</button>
-            </div>
-          </div>
 
-          <div className="butter-slider-track" ref={reviewsTrackRef}>
-            <div className="testimonial-card butter-review-card">
-              <div className="reviewer-header">
-                <img src="/images/avatar1.jpg" alt="Priya & Vikram" className="reviewer-avatar" />
-                <div className="reviewer-meta">
-                  <div className="reviewer-name-row">
-                    <h4 className="reviewer-name">Priya & Vikram</h4>
-                    <span className="reviewer-verified-tag">✓ Verified Traveler</span>
+              <div className="contact-info-list">
+                <div className="contact-info-row">
+                  <div>
+                    <strong>Location</strong>
+                    <p>Madurai, Tamil Nadu, India</p>
                   </div>
-                  <span className="reviewer-origin">Madurai • Bali Honeymoon 5N/6D</span>
-                  <div className="star-rating">★★★★★</div>
+                </div>
+
+                <div className="contact-info-row">
+                  <div>
+                    <strong>Phone</strong>
+                    <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                  </div>
+                </div>
+
+                <div className="contact-info-row">
+                  <div>
+                    <strong>Email</strong>
+                    <p><a href="mailto:info@srikombantravels.com">info@srikombantravels.com</a></p>
+                  </div>
                 </div>
               </div>
-              <p className="reviewer-text">"Amazing experience with Sri Komban Travels! Everything was organized from Madurai to Bali. The beach resort, private pool villa, chauffeur, and custom itinerary were completely seamless."</p>
+
+              <div className="contact-wa-action">
+                <p>Your Next Story Could Start With One Message.</p>
+                <button onClick={handleFormWhatsApp} className="btn-tourist-wa-lg">
+                  Send Your Enquiry on WhatsApp →
+                </button>
+              </div>
             </div>
 
-            <div className="testimonial-card butter-review-card">
-              <div className="reviewer-header">
-                <img src="/images/avatar2.jpg" alt="Rohit Verma" className="reviewer-avatar" />
-                <div className="reviewer-meta">
-                  <div className="reviewer-name-row">
-                    <h4 className="reviewer-name">Rohit Verma & Family</h4>
-                    <span className="reviewer-verified-tag">✓ Verified Traveler</span>
-                  </div>
-                  <span className="reviewer-origin">Madurai • Thailand 5D/4N Package</span>
-                  <div className="star-rating">★★★★★</div>
-                </div>
-              </div>
-              <p className="reviewer-text">"The best vacation we ever had in Thailand. Great service and memorable moments. Having their team on 24/7 call gave our family immense confidence throughout the trip."</p>
-            </div>
+            {/* Right Col: Plan Your Trip Form */}
+            <div className="contact-form-box">
+              <h3 className="contact-box-title">Plan Your Trip</h3>
+              <p className="contact-box-desc">
+                Tell us a little about your journey. Fill in the form below and share your travel requirements. The more we know, the better we can understand what you're looking for.
+              </p>
 
-            <div className="testimonial-card butter-review-card">
-              <div className="reviewer-header">
-                <img src="/images/avatar3.jpg" alt="Anjali Mehta" className="reviewer-avatar" />
-                <div className="reviewer-meta">
-                  <div className="reviewer-name-row">
-                    <h4 className="reviewer-name">Anjali Mehta</h4>
-                    <span className="reviewer-verified-tag">✓ Verified Traveler</span>
-                  </div>
-                  <span className="reviewer-origin">Dindigul • Andaman Island Escape</span>
-                  <div className="star-rating">★★★★★</div>
+              {submitted && (
+                <div className="contact-success-notice">
+                  Thank you, {formData.name}! Your enquiry has been received. Our Madurai team will get in touch with you shortly.
                 </div>
-              </div>
-              <p className="reviewer-text">"Highly recommended! Will definitely book our next trip with them. Our Andaman trip was well curated, within our budget, and the beach resorts at Havelock were outstanding."</p>
-            </div>
+              )}
 
-            <div className="testimonial-card butter-review-card">
-              <div className="reviewer-header">
-                <img src="/images/avatar4.jpg" alt="Karan Singh" className="reviewer-avatar" />
-                <div className="reviewer-meta">
-                  <div className="reviewer-name-row">
-                    <h4 className="reviewer-name">Karan Singh & Friends</h4>
-                    <span className="reviewer-verified-tag">✓ Verified Traveler</span>
+              <form onSubmit={handleSubmit} className="tourist-form">
+                <div className="form-row-2">
+                  <div className="form-field">
+                    <label>Full Name *</label>
+                    <input 
+                      type="text" 
+                      required 
+                      placeholder="Enter your name" 
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="form-input"
+                    />
                   </div>
-                  <span className="reviewer-origin">Trichy • Goa Beach & Cruise Tour</span>
-                  <div className="star-rating">★★★★★</div>
+                  <div className="form-field">
+                    <label>Phone Number *</label>
+                    <input 
+                      type="tel" 
+                      required 
+                      placeholder="Enter your phone number" 
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="form-input"
+                    />
+                  </div>
                 </div>
-              </div>
-              <p className="reviewer-text">"Excellent support throughout the trip. Hassle-free and enjoyable. Our group of 6 travelled to Goa and everything from local cab to stays and Mandovi cruise was taken care of."</p>
+
+                <div className="form-row-2">
+                  <div className="form-field">
+                    <label>Email Address</label>
+                    <input 
+                      type="email" 
+                      placeholder="Enter your email address" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="form-input"
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label>Where Do You Want to Go? *</label>
+                    <select 
+                      value={formData.destination}
+                      onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
+                      className="form-input"
+                    >
+                      <option value="Thailand">Thailand</option>
+                      <option value="Malaysia">Malaysia</option>
+                      <option value="Bali">Bali</option>
+                      <option value="Andaman">Andaman</option>
+                      <option value="Goa">Goa</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="form-row-2">
+                  <div className="form-field">
+                    <label>Preferred Travel Date</label>
+                    <input 
+                      type="date" 
+                      value={formData.travelDate}
+                      onChange={(e) => setFormData({ ...formData, travelDate: e.target.value })}
+                      className="form-input"
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label>Number of Travellers</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g. 2 Adults, 1 Child" 
+                      value={formData.travelers}
+                      onChange={(e) => setFormData({ ...formData, travelers: e.target.value })}
+                      className="form-input"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-field">
+                  <label>What Kind of Trip Are You Planning?</label>
+                  <select 
+                    value={formData.tripType}
+                    onChange={(e) => setFormData({ ...formData, tripType: e.target.value })}
+                    className="form-input"
+                  >
+                    <option value="Honeymoon / Couple">Honeymoon / Couple</option>
+                    <option value="Family Holiday">Family Holiday</option>
+                    <option value="Friends / Group">Friends / Group</option>
+                    <option value="International Trip">International Trip</option>
+                    <option value="Beach Holiday">Beach Holiday</option>
+                    <option value="Customized Trip">Customized Trip</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div className="form-field">
+                  <label>Tell Us About Your Trip</label>
+                  <textarea 
+                    rows="3" 
+                    placeholder="Share your requirements, preferences or anything you'd like us to know..."
+                    value={formData.notes}
+                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="form-submit-row">
+                  <button type="submit" className="btn-tourist-primary-lg">
+                    Start Planning My Trip →
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </section>
-
-      {/* ==================== TRUST BAR ==================== */}
-      <TrustBar />
-
-      {/* ==================== NEWSLETTER ==================== */}
-      <Newsletter />
-
-      {/* Package Modal */}
-      {selectedPkg && (
-        <PackageModal pkg={selectedPkg} onClose={() => setSelectedPkg(null)} />
-      )}
-    </>
+    </div>
   );
 }
