@@ -54,28 +54,28 @@ export default function VehiclesPage() {
                 <span className="vehicle-badge">Compact Luxury SUV</span>
               </div>
               <div className="vehicle-thumbs">
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${xuvImg === '/images/vehicles/mahindra-xuv3xo.jpg' ? 'active' : ''}`}
                   onClick={() => setXuvImg('/images/vehicles/mahindra-xuv3xo.jpg')}
                   title="Front Angle"
                 >
                   <img src="/images/vehicles/mahindra-xuv3xo.jpg" alt="XUV 3XO Front" />
                 </button>
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${xuvImg === '/images/vehicles/mahindra-xuv3xo-rear.jpg' ? 'active' : ''}`}
                   onClick={() => setXuvImg('/images/vehicles/mahindra-xuv3xo-rear.jpg')}
                   title="Rear View"
                 >
                   <img src="/images/vehicles/mahindra-xuv3xo-rear.jpg" alt="XUV 3XO Rear" />
                 </button>
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${xuvImg === '/images/vehicles/vehicle-1/IMG_1610.JPG.jpeg' ? 'active' : ''}`}
                   onClick={() => setXuvImg('/images/vehicles/vehicle-1/IMG_1610.JPG.jpeg')}
                   title="Street View"
                 >
                   <img src="/images/vehicles/vehicle-1/IMG_1610.JPG.jpeg" alt="XUV 3XO Street" />
                 </button>
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${xuvImg === '/images/vehicles/vehicle-1/IMG_1613.JPG.jpeg' ? 'active' : ''}`}
                   onClick={() => setXuvImg('/images/vehicles/vehicle-1/IMG_1613.JPG.jpeg')}
                   title="Front Profile"
@@ -107,28 +107,28 @@ export default function VehiclesPage() {
                 <span className="vehicle-badge">Most Popular SUV</span>
               </div>
               <div className="vehicle-thumbs">
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${innovaImg === '/images/vehicles/toyota-innova-crysta.jpg' ? 'active' : ''}`}
                   onClick={() => setInnovaImg('/images/vehicles/toyota-innova-crysta.jpg')}
                   title="Mountain View"
                 >
                   <img src="/images/vehicles/toyota-innova-crysta.jpg" alt="Innova Crysta Munnar" />
                 </button>
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${innovaImg === '/images/vehicles/toyota-innova-crysta-side.jpg' ? 'active' : ''}`}
                   onClick={() => setInnovaImg('/images/vehicles/toyota-innova-crysta-side.jpg')}
                   title="Lakeside Profile"
                 >
                   <img src="/images/vehicles/toyota-innova-crysta-side.jpg" alt="Innova Crysta Lakeside" />
                 </button>
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${innovaImg === '/images/vehicles/toyota-innova-crysta-beach.jpg' ? 'active' : ''}`}
                   onClick={() => setInnovaImg('/images/vehicles/toyota-innova-crysta-beach.jpg')}
                   title="Ocean Beach"
                 >
                   <img src="/images/vehicles/toyota-innova-crysta-beach.jpg" alt="Innova Crysta Beach" />
                 </button>
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${innovaImg === '/images/vehicles/vehicle-3/WhatsApp Image 2026-10-17 at 9.25.17 PM.jpeg' ? 'active' : ''}`}
                   onClick={() => setInnovaImg('/images/vehicles/vehicle-3/WhatsApp Image 2026-10-17 at 9.25.17 PM.jpeg')}
                   title="Front Hill"
@@ -160,28 +160,28 @@ export default function VehiclesPage() {
                 <span className="vehicle-badge">Komban Signature Van</span>
               </div>
               <div className="vehicle-thumbs">
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${urbaniaImg === '/images/vehicles/force-urbania.jpg' ? 'active' : ''}`}
                   onClick={() => setUrbaniaImg('/images/vehicles/force-urbania.jpg')}
                   title="Resort View"
                 >
                   <img src="/images/vehicles/force-urbania.jpg" alt="Force Urbania Resort" />
                 </button>
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${urbaniaImg === '/images/vehicles/force-urbania-airport.jpg' ? 'active' : ''}`}
                   onClick={() => setUrbaniaImg('/images/vehicles/force-urbania-airport.jpg')}
                   title="Airport View"
                 >
                   <img src="/images/vehicles/force-urbania-airport.jpg" alt="Force Urbania Airport" />
                 </button>
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${urbaniaImg === '/images/vehicles/vehicle-2/WhatsApp Image 2026-10-17 at 9.25.17 PM (2).jpeg' ? 'active' : ''}`}
                   onClick={() => setUrbaniaImg('/images/vehicles/vehicle-2/WhatsApp Image 2026-10-17 at 9.25.17 PM (2).jpeg')}
                   title="Exterior View"
                 >
                   <img src="/images/vehicles/vehicle-2/WhatsApp Image 2026-10-17 at 9.25.17 PM (2).jpeg" alt="Force Urbania Exterior" />
                 </button>
-                <button 
+                <button
                   className={`vehicle-thumb-btn ${urbaniaImg === '/images/vehicles/vehicle-2/WhatsApp Image 2026-10-17 at 9.25.17 PM (3).jpeg' ? 'active' : ''}`}
                   onClick={() => setUrbaniaImg('/images/vehicles/vehicle-2/WhatsApp Image 2026-10-17 at 9.25.17 PM (3).jpeg')}
                   title="Front Look"
@@ -220,10 +220,10 @@ export default function VehiclesPage() {
               </p>
             </div>
             <div className="vehicle-cta-actions">
-              <a 
-                href="https://wa.me/919876543210?text=Hi%20Sri%20Komban%20Travels,%20I%20want%20to%20get%20the%20best%20offer%20for%20my%20upcoming%20ride!" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://wa.me/919876543210?text=Hi%20Sri%20Komban%20Travels,%20I%20want%20to%20get%20the%20best%20offer%20for%20my%20upcoming%20ride!"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-feat-pkg-wa"
                 style={{ width: 'auto', padding: '14px 26px', fontSize: '0.98rem' }}
               >
@@ -239,6 +239,7 @@ export default function VehiclesPage() {
           </div>
         </div>
       </section>
+
 
     </>
   );
