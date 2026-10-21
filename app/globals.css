@@ -4377,20 +4377,33 @@ html {
 
   /* Collapse phone pill on mobile so logo & hamburger have room */
   .phone-number-text {
-    display: none;
+    display: none !important;
   }
 
   .shanti-nav-phone-pill {
-    width: 38px;
-    height: 38px;
-    padding: 0;
-    justify-content: center;
-    border-radius: 50%;
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+    gap: 0 !important;
   }
 
   .phone-icon-svg {
-    width: 16px;
-    height: 16px;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    display: block !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
   }
 
   .exact-hero-container {
@@ -4989,25 +5002,53 @@ html {
 /* Responsive Rules for Hero & Destinations */
 @media (max-width: 992px) {
   .globe-hero-container {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
   }
 
   .globe-hero-left {
+    display: contents;
+  }
+
+  .globe-hero-title {
+    order: 1;
     max-width: 100%;
     text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .globe-hero-lead {
+    order: 2;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  /* In mobile view, place grid image collage immediately next to the lead section */
+  .globe-hero-right {
+    order: 3;
+    width: 100%;
+    margin: 6px 0 16px;
+  }
+
+  .globe-hero-desc {
+    order: 4;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
   }
 
   .globe-hero-actions {
+    order: 5;
     justify-content: center;
+    width: 100%;
   }
 
   .globe-flight-trail {
+    order: 6;
     margin: 6px auto 0;
-  }
-
-  .globe-hero-right {
-    width: 100%;
   }
 
   .globe-collage-wrapper {
@@ -6457,15 +6498,33 @@ html {
   }
 
   .phone-number-text {
-    display: none;
+    display: none !important;
   }
 
   .shanti-nav-phone-pill {
-    width: 38px;
-    height: 38px;
-    padding: 0;
-    justify-content: center;
-    border-radius: 50%;
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+    gap: 0 !important;
+  }
+
+  .phone-icon-svg {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    display: block !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
   }
 
   .form-submit-row {
@@ -7615,21 +7674,46 @@ html {
 /* Responsive Rules for Hero & Destinations */
 @media (max-width: 992px) {
   .globe-hero-container {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
   }
   .globe-hero-left {
+    display: contents;
+  }
+  .globe-hero-title {
+    order: 1;
     max-width: 100%;
     text-align: center;
+    margin-bottom: 4px;
+  }
+  .globe-hero-lead {
+    order: 2;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  /* In mobile view, place grid image collage immediately next to the lead section */
+  .globe-hero-right {
+    order: 3;
+    width: 100%;
+    margin: 6px 0 16px;
+  }
+  .globe-hero-desc {
+    order: 4;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
   }
   .globe-hero-actions {
+    order: 5;
     justify-content: center;
+    width: 100%;
   }
   .globe-flight-trail {
+    order: 6;
     margin: 6px auto 0;
-  }
-  .globe-hero-right {
-    width: 100%;
   }
   .globe-collage-wrapper {
     max-width: 480px;
@@ -7790,8 +7874,14 @@ html {
 }
 
 .phone-icon-svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  display: inline-block;
+  flex-shrink: 0;
+  fill: #ffffff;
+  color: #ffffff;
 }
 
 /* Mobile Toggle & Drawer Menu */
@@ -7890,6 +7980,40 @@ html {
   }
   .shanti-top-nav {
     padding: 14px 20px;
+  }
+
+  /* In mobile view, turn phone button into a clean circle with centered call icon */
+  .phone-number-text {
+    display: none !important;
+  }
+
+  .shanti-nav-phone-pill {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    max-width: 42px !important;
+    max-height: 42px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    gap: 0 !important;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  }
+
+  .phone-icon-svg {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    display: block !important;
+    fill: #ffffff !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
   }
 }
 

@@ -237,7 +237,7 @@ export default function VehiclesPage() {
               </Link>
             </div>
           </div>
-        </div>
+        </div> 
       </section>
 
 
