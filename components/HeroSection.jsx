@@ -56,11 +56,11 @@ export default function HeroSection() {
           </h1>
 
           <p className="globe-hero-lead">
-            From Madurai to the world — let’s turn your travel dreams into unforgettable journeys.
+            From Madurai across South India — let’s turn your travel dreams into unforgettable journeys.
           </p>
 
           <p className="globe-hero-desc">
-            Discover exciting destinations, thoughtfully planned tour packages, and personalized travel experiences with Sri Komban Travels &amp; Tourism. Whether you're dreaming of Thailand, Bali, Malaysia, Andaman, Goa, or a getaway closer to home, we're here to help you plan the journey your way.
+            Discover breathtaking hill stations, sacred heritage temple circuits, serene backwaters, and verified cab rentals with Sri Komban Travels &amp; Tourism. From Madurai, Rameswaram, and Kodaikanal to Ooty, Munnar, and Kanyakumari, we plan your domestic journey your way.
           </p>
 
           {/* Action Buttons */}
@@ -130,12 +130,12 @@ export default function HeroSection() {
             {/* Left Tall Arched/Rounded Image */}
             <div className="collage-card card-tall">
               <img 
-                src="/images/hero-bg.jpg" 
-                alt="Tropical Island Paradise" 
+                src="/images/destinations/munnar.jpg" 
+                alt="Munnar Tea Hills and Kerala Backwaters" 
                 className="collage-img"
               />
               <div className="card-subtle-caption">
-                <span>Island Escapes</span>
+                <span>Munnar &amp; Kerala</span>
               </div>
             </div>
 
@@ -144,12 +144,12 @@ export default function HeroSection() {
               {/* Top-Right Card */}
               <div className="collage-card card-top-right">
                 <img 
-                  src="/images/thailand.jpg" 
-                  alt="Thailand Scenic View" 
+                  src="/images/destinations/ooty.jpg" 
+                  alt="Ooty Nilgiri Mountain Railway" 
                   className="collage-img"
                 />
                 <div className="card-subtle-caption">
-                  <span>Thailand &amp; Beyond</span>
+                  <span>Ooty &amp; Nilgiris</span>
                 </div>
               </div>
 

@@ -2,11 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { siteConfig } from '../lib/siteConfig';
 
 export default function AssistanceBanner() {
   const handleWhatsAppHelp = () => {
-    const msg = "Hi Shanti Travels! I need assistance planning my holiday package. Please connect me with a tour expert.";
-    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(msg)}`, '_blank');
+    const msg = `Hi ${siteConfig.shortName}! I need assistance planning my South India tour package. Please connect me with a tour expert.`;
+    window.open(`https://wa.me/${siteConfig.contact.whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   return (
@@ -20,7 +21,7 @@ export default function AssistanceBanner() {
             <span className="assistance-sub">LOCAL MADURAI TRAVEL ADVISORS</span>
             <h2 className="assistance-title">Planning a Trip? Talk to a Human Specialist</h2>
             <p className="assistance-desc">
-              Skip the complicated planning. Speak directly with our destination coordinators in Madurai for personalized itineraries, flight tickets, visa guidance, and transparent quotes.
+              Skip the complicated planning. Speak directly with our destination coordinators in Madurai for personalized itineraries, hotel reservations, sanitized cab rentals, and transparent quotes.
             </p>
             
             <div className="assistance-btns">
@@ -30,11 +31,11 @@ export default function AssistanceBanner() {
                 </svg>
                 <span>WhatsApp Quick Chat</span>
               </button>
-              <a href="tel:+919876543210" className="btn btn-glass-white">
+              <a href={`tel:${siteConfig.contact.phoneTel}`} className="btn btn-glass-white">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="btn-icon-call">
                   <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.28-.28.37-.67.25-1.02A11.36 11.36 0 0 1 8.5 4.31c0-.55-.45-1-1-1H4.11c-.55 0-1 .45-1 1C3.11 13.9 10.1 20.89 19.89 20.89c.55 0 1-.45 1-1v-3.39c0-.55-.45-1-1-1.12z"/>
                 </svg>
-                <span>+91 98765 43210</span>
+                <span>{siteConfig.contact.phoneDisplay}</span>
               </a>
             </div>
           </div>

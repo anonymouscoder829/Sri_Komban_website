@@ -3,85 +3,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import OfferCTA from '../../components/OfferCTA';
+import { galleryItems } from '../../lib/galleryData';
 
 export default function GalleryPage() {
   const [activeTab, setActiveTab] = useState('all');
   const [modalImage, setModalImage] = useState(null);
-
-  const galleryItems = [
-    {
-      title: 'Tropical Waters & Longtail Boats',
-      category: 'international',
-      loc: 'Coral Island, Thailand',
-      img: '/images/thailand.jpg'
-    },
-    {
-      title: 'Ancient Water Temple',
-      category: 'international',
-      loc: 'Ulun Danu, Bali',
-      img: '/images/bali.jpg'
-    },
-    {
-      title: 'Misty Mountain Tea Plantations',
-      category: 'domestic',
-      loc: 'Munnar, Kerala',
-      img: '/images/kerala.jpg'
-    },
-    {
-      title: 'Radhanagar White Sand Beach',
-      category: 'domestic',
-      loc: 'Havelock Island, Andaman',
-      img: '/images/andaman.jpg'
-    },
-    {
-      title: 'Historic Gopuram Towers',
-      category: 'heritage',
-      loc: 'Meenakshi Temple, Madurai',
-      img: '/images/madurai-heritage.jpg'
-    },
-    {
-      title: 'Petronas Twin Towers at Dusk',
-      category: 'international',
-      loc: 'Kuala Lumpur, Malaysia',
-      img: '/images/malaysia.jpg'
-    },
-    {
-      title: 'Sunset Waves & Palm Trees',
-      category: 'domestic',
-      loc: 'Calangute, Goa',
-      img: '/images/goa.jpg'
-    },
-    {
-      title: 'Mahindra XUV 3XO (TN 58 BS 3075)',
-      category: 'fleet',
-      loc: 'Company Fleet, Madurai',
-      img: '/images/vehicles/mahindra-xuv3xo.jpg'
-    },
-    {
-      title: 'Toyota Innova Crysta (TN 64 AE 6333)',
-      category: 'fleet',
-      loc: 'Outstation Luxury Cab',
-      img: '/images/vehicles/toyota-innova-crysta.jpg'
-    },
-    {
-      title: 'Force Urbania Luxury Van (TN 58 CU 4516)',
-      category: 'fleet',
-      loc: 'Executive Group Cruiser',
-      img: '/images/vehicles/force-urbania.jpg'
-    },
-    {
-      title: 'Scenic Hill Station Highway Drive',
-      category: 'fleet',
-      loc: 'Kodaikanal Ghat Road',
-      img: '/images/vehicles/vehicle-1/IMG_1610.JPG.jpeg'
-    },
-    {
-      title: 'Urbania Aircraft-Cabin Chauffeur Drive',
-      category: 'fleet',
-      loc: 'Group Pilgrimage Tour',
-      img: '/images/vehicles/vehicle-3/IMG_1648.JPG.jpeg'
-    }
-  ];
 
   const filteredItems = activeTab === 'all'
     ? galleryItems
@@ -112,28 +38,28 @@ export default function GalleryPage() {
               All Photos ({galleryItems.length})
             </button>
             <button 
-              className={`filter-btn ${activeTab === 'international' ? 'active' : ''}`}
-              onClick={() => setActiveTab('international')}
+              className={`filter-btn ${activeTab === 'heritage' ? 'active' : ''}`}
+              onClick={() => setActiveTab('heritage')}
             >
-              International
+              Heritage &amp; Temples
             </button>
             <button 
-              className={`filter-btn ${activeTab === 'domestic' ? 'active' : ''}`}
-              onClick={() => setActiveTab('domestic')}
+              className={`filter-btn ${activeTab === 'hills' ? 'active' : ''}`}
+              onClick={() => setActiveTab('hills')}
             >
-              Domestic &amp; Islands
+              Hill Stations &amp; Nature
             </button>
             <button 
               className={`filter-btn ${activeTab === 'fleet' ? 'active' : ''}`}
               onClick={() => setActiveTab('fleet')}
             >
-              Our Real Fleet
+              Our Verified Fleet
             </button>
             <button 
-              className={`filter-btn ${activeTab === 'heritage' ? 'active' : ''}`}
-              onClick={() => setActiveTab('heritage')}
+              className={`filter-btn ${activeTab === 'domestic' ? 'active' : ''}`}
+              onClick={() => setActiveTab('domestic')}
             >
-              Heritage &amp; Temple
+              Coastal &amp; Islands
             </button>
           </div>
         </div>
@@ -149,7 +75,13 @@ export default function GalleryPage() {
                 className="gallery-card-item"
                 onClick={() => setModalImage(item)}
               >
-                <img src={item.img} alt={item.title} className="gallery-img-large" loading="lazy" />
+                <img 
+                  src={item.img} 
+                  alt={item.title} 
+                  className="gallery-img-large" 
+                  loading="lazy" 
+                  decoding="async"
+                />
                 <div className="gallery-hover-info">
                   <span className="gallery-hover-loc">📍 {item.loc}</span>
                   <h4 className="gallery-hover-title">{item.title}</h4>

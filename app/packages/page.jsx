@@ -3,54 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import OfferCTA from '../../components/OfferCTA';
+import { packagesList } from '../../lib/packagesData';
+import { siteConfig, getWhatsAppUrl } from '../../lib/siteConfig';
 
 export default function PackagesPage() {
-  const packages = [
-    {
-      title: 'Thailand Escape',
-      duration: '4 Nights / 5 Days',
-      price: 'Starting from ₹21,999 / Person',
-      image: '/images/thailand.jpg',
-      desc: 'Beaches, island experiences, city adventures and vibrant Thai culture — everything you need for an exciting international getaway.',
-      bestFor: 'Couples • Friends • Adventure'
-    },
-    {
-      title: 'Malaysia Getaway',
-      duration: '4 Nights / 5 Days',
-      price: 'Starting from ₹19,999 / Person',
-      image: '/images/malaysia.jpg',
-      desc: 'Discover modern cities, cultural experiences, shopping spots and scenic escapes on a memorable Malaysian holiday.',
-      bestFor: 'Families • Couples • Groups'
-    },
-    {
-      title: 'Andaman Escape',
-      duration: '4 Nights / 5 Days',
-      price: 'Starting from ₹18,999 / Person',
-      image: '/images/andaman.jpg',
-      desc: 'Beautiful beaches, peaceful islands, nature and exciting experiences make Andaman a perfect escape from everyday life.',
-      bestFor: 'Couples • Families • Beach Lovers'
-    },
-    {
-      title: 'Bali Escape',
-      duration: '4 Nights / 5 Days',
-      price: 'Starting from ₹24,999 / Person',
-      image: '/images/bali.jpg',
-      desc: 'Tropical beaches, beautiful landscapes, local culture and romantic experiences come together for an unforgettable Bali getaway.',
-      bestFor: 'Honeymoon • Couples • Friends'
-    },
-    {
-      title: 'Goa Getaway',
-      duration: '4 Nights / 5 Days',
-      price: 'Starting from ₹13,999 / Person',
-      image: '/images/goa.jpg',
-      desc: 'Enjoy beach days, beautiful sunsets, local experiences and relaxed moments on a refreshing Goa getaway.',
-      bestFor: 'Friends • Couples • Families'
-    }
-  ];
-
   const handleInquiry = (pkgTitle) => {
-    const msg = `Hi Sri Komban Travels, I'm interested in the "${pkgTitle}" package. Please share details and itinerary!`;
-    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(msg)}`, '_blank');
+    const msg = `Hi ${siteConfig.shortName}, I'm interested in the "${pkgTitle}" package. Please share details and itinerary!`;
+    window.open(getWhatsAppUrl(msg), '_blank');
   };
 
   return (
@@ -65,7 +24,7 @@ export default function PackagesPage() {
           </div>
           <h1 className="tourist-page-title">Don't Just Pick a Package. Pick Your Kind of Journey.</h1>
           <p className="tourist-page-subtitle">
-            Every trip starts with a reason — a relaxing beach escape, a romantic getaway, a family holiday, or an adventure with friends. At Sri Komban Travels &amp; Tourism, explore carefully planned tour packages from Madurai to Thailand, Malaysia, Bali, Andaman and Goa.
+            Every trip starts with a reason — a refreshing hill station escape, a sacred temple pilgrimage, a relaxing backwater cruise, or a coastal family holiday. At Sri Komban Travels &amp; Tourism, explore carefully planned South India tour packages departing from Madurai across Tamil Nadu, Kerala, and beyond.
           </p>
           <div className="section-cta-center" style={{ marginTop: '20px' }}>
             <Link href="/contact" className="btn-tourist-primary">
@@ -86,10 +45,16 @@ export default function PackagesPage() {
           </div>
 
           <div className="places-page-grid">
-            {packages.map((pkg, idx) => (
+            {packagesList.map((pkg, idx) => (
               <div key={idx} className="place-page-card">
                 <div className="place-page-img-wrap">
-                  <img src={pkg.image} alt={pkg.title} className="place-page-img" />
+                  <img 
+                    src={pkg.image} 
+                    alt={pkg.title} 
+                    className="place-page-img" 
+                    loading="lazy" 
+                    decoding="async" 
+                  />
                 </div>
                 <div className="place-page-body">
                   <h3 className="place-page-title" style={{ marginBottom: '10px' }}>{pkg.title}</h3>
@@ -113,7 +78,7 @@ export default function PackagesPage() {
           <OfferCTA 
             badge="CUSTOM HOLIDAY PACKAGES"
             title="Wherever You Want to Go, We Can Do That at the Best Offer!"
-            desc="Don't see your dream destination listed? Tell us your travel dates, group size, and interests. We customize flight tickets, hotels, sightseeing, and local transfers at the best rates."
+            desc="Don't see your dream destination listed? Tell us your travel dates, group size, and interests. We customize personalized itineraries, verified hotel stays, sightseeing, and sanitized cab transfers across South India at the best rates."
             waText="Hi Sri Komban Travels, I want a custom package quote for my upcoming holiday!"
             secondaryBtnText="Plan Custom Itinerary →"
             secondaryBtnHref="/contact"

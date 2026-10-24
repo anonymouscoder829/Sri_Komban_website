@@ -1,7 +1,7 @@
 'use client';
 
-import TravelServicesPage from '../travel-services/page';
+import PlacesPage from '../places/page';
 
 export default function DestinationsPage() {
-  return <TravelServicesPage />;
+  return <PlacesPage />;
 }

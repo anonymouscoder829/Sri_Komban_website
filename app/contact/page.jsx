@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { siteConfig, getWhatsAppUrl } from '../../lib/siteConfig';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    destination: 'Thailand',
+    destination: 'Madurai & Rameswaram',
     travelDate: '',
     travelers: '2 Adults',
     tripType: 'Honeymoon / Couple',
@@ -27,7 +28,7 @@ export default function ContactPage() {
   };
 
   const handleSendWhatsApp = () => {
-    const message = `*Trip Enquiry — Sri Komban Travels*\n\n` +
+    const message = `*Trip Enquiry — ${siteConfig.shortName}*\n\n` +
       `*Name:* ${formData.name || 'Traveler'}\n` +
       `*Phone:* ${formData.phone || 'N/A'}\n` +
       `*Email:* ${formData.email || 'N/A'}\n` +
@@ -37,7 +38,7 @@ export default function ContactPage() {
       `*Trip Type:* ${formData.tripType}\n` +
       `*Notes:* ${formData.notes || 'Looking for trip options.'}`;
 
-    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(getWhatsAppUrl(message), '_blank');
   };
 
   return (
@@ -52,9 +53,9 @@ export default function ContactPage() {
           </div>
           <h1 className="tourist-page-title">Tell Us Where You Want to Go.</h1>
           <p className="tourist-page-subtitle">
-            Your next journey could be a relaxing beach escape, a romantic honeymoon, a family holiday or an international adventure.
+            Your next journey could be a relaxing hill station escape, a romantic honeymoon, a sacred temple pilgrimage, or a family holiday.
             <br />
-            Thailand? Malaysia? Bali? Andaman? Goa? Or somewhere completely different? Tell us what you're planning. Our team will help you explore the right travel options for your journey. Let's turn your travel idea into a plan.
+            Madurai? Rameswaram? Kodaikanal? Ooty? Munnar? Kanyakumari? Or a custom South India route? Tell us what you're planning. Our team will help you explore the right travel options with verified AC fleet rentals and custom itineraries.
           </p>
         </div>
       </section>
@@ -67,28 +68,28 @@ export default function ContactPage() {
             <div className="contact-details-box">
               <h2 className="contact-box-title">Let's Connect</h2>
               <p className="contact-box-desc">
-                Sri Komban Travels &amp; Tourism is based in Madurai, Tamil Nadu, India. Connect with us directly to discuss your holiday plans.
+                {siteConfig.name} is based in {siteConfig.contact.locationShort}. Connect with us directly to discuss your holiday plans.
               </p>
 
               <div className="contact-info-list">
                 <div className="contact-info-row">
                   <div>
                     <strong>Location</strong>
-                    <p>Madurai, Tamil Nadu, India - 625001</p>
+                    <p>{siteConfig.contact.locationFull}</p>
                   </div>
                 </div>
 
                 <div className="contact-info-row">
                   <div>
                     <strong>Phone Number</strong>
-                    <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                    <p><a href={`tel:${siteConfig.contact.phoneTel}`}>{siteConfig.contact.phoneDisplay}</a></p>
                   </div>
                 </div>
 
                 <div className="contact-info-row">
                   <div>
                     <strong>Email Address</strong>
-                    <p><a href="mailto:info@srikombantravels.com">info@srikombantravels.com</a></p>
+                    <p><a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a></p>
                   </div>
                 </div>
               </div>
@@ -166,12 +167,14 @@ export default function ContactPage() {
                       onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
                       className="form-input"
                     >
-                      <option value="Thailand">Thailand</option>
-                      <option value="Malaysia">Malaysia</option>
-                      <option value="Bali">Bali</option>
-                      <option value="Andaman">Andaman</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Other">Other</option>
+                      <option value="Madurai & Rameswaram">Madurai &amp; Rameswaram</option>
+                      <option value="Kodaikanal Hill Station">Kodaikanal Hill Station</option>
+                      <option value="Ooty & Nilgiris">Ooty &amp; Nilgiris</option>
+                      <option value="Munnar & Kerala Backwaters">Munnar &amp; Kerala Backwaters</option>
+                      <option value="Kanyakumari & Triveni Sangam">Kanyakumari &amp; Triveni Sangam</option>
+                      <option value="Thanjavur & Chola Temples">Thanjavur &amp; Chola Temples</option>
+                      <option value="Custom Outstation Route">Custom Outstation Route</option>
+                      <option value="Other">Other South India Circuit</option>
                     </select>
                   </div>
                 </div>
@@ -206,11 +209,12 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, tripType: e.target.value })}
                     className="form-input"
                   >
-                    <option value="Honeymoon / Couple">Honeymoon / Couple</option>
+                    <option value="Temple Pilgrimage Circuit">Temple Pilgrimage Circuit</option>
+                    <option value="Hill Station Getaway">Hill Station Getaway</option>
                     <option value="Family Holiday">Family Holiday</option>
+                    <option value="Honeymoon / Couple">Honeymoon / Couple</option>
                     <option value="Friends / Group">Friends / Group</option>
-                    <option value="International Trip">International Trip</option>
-                    <option value="Beach Holiday">Beach Holiday</option>
+                    <option value="Outstation Cab Rental">Outstation Cab Rental</option>
                     <option value="Customized Trip">Customized Trip</option>
                     <option value="Other">Other</option>
                   </select>

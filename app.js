@@ -43,62 +43,62 @@ const PACKAGE_DATA = {
     ],
     inclusions: ["Deluxe Hotel / Resort", "Airport / Station Transfers", "Daily Breakfast", "Mandovi River Cruise Pass"]
   },
-  thailand: {
-    title: "Thailand Escape",
-    destination: "Thailand 🇹🇭",
-    duration: "4 Nights / 5 Days",
-    price: "₹24,999",
-    oldPrice: "₹31,000",
+  'madurai-rameswaram': {
+    title: "Madurai - Rameswaram - Kanyakumari Pilgrimage",
+    destination: "Tamil Nadu Heritage 🛕",
+    duration: "3 Nights / 4 Days",
+    price: "₹11,499",
+    oldPrice: "₹14,500",
     discount: "20% OFF",
-    image: "images/thailand.jpg",
-    bestFor: "Couples • Friends • Adventure • First International Trips",
-    overview: "From vibrant Bangkok city experiences and tropical Phi Phi island beaches to exciting Thai street food and nightlife.",
+    image: "images/destinations/rameswaram_bridge.jpg",
+    bestFor: "Pilgrimage • Family • Seniors",
+    overview: "Experience the spiritual heart of South India with sacred darshans, ocean drives, and historic Dravidian temple architecture.",
     highlights: [
-      "Phi Phi Island speedboat excursion with Maya Bay sightseeing",
-      "Bangkok city & Grand Palace cultural temple tour",
-      "Coral Island tour in Pattaya with glass bottom boat view",
-      "Chao Phraya luxury dinner cruise with live entertainment",
-      "Assistance with Thailand Visa on Arrival / E-Visa"
+      "Meenakshi Amman Temple & Nayakar Mahal guided tour",
+      "Scenic drive over historical Pamban sea bridge",
+      "Rameswaram temple darshan & bath in 22 sacred theerthams",
+      "Visit Dhanushkodi ghost town & Arichal Munai tip",
+      "Kanyakumari sunrise, sunset & Vivekananda Rock memorial ferry"
     ],
-    inclusions: ["Bangkok & Pattaya Hotels", "Speedboat Island Tour", "Airport Transfers", "Daily Buffet Breakfast"]
+    inclusions: ["Deluxe AC Hotels", "Dedicated AC Fleet Cab", "Daily Breakfast", "Tolls & Driver Bata"]
   },
-  bali: {
-    title: "Bali Escape",
-    destination: "Bali 🌴",
+  'ooty-kodaikanal': {
+    title: "Queen of Hills: Ooty & Kodaikanal",
+    destination: "Nilgiris & Western Ghats 🌲",
     duration: "4 Nights / 5 Days",
-    price: "₹28,999",
-    oldPrice: "₹36,000",
+    price: "₹13,999",
+    oldPrice: "₹17,500",
     discount: "20% OFF",
-    image: "images/bali.jpg",
-    bestFor: "Honeymoon • Couples • Friends • Wellness & Relaxation",
-    overview: "From tropical beaches and lush Ubud rice terraces to romantic sunset dinners and sacred Balinese water temples.",
+    image: "images/destinations/ooty_toy_train.jpg",
+    bestFor: "Honeymoon • Couples • Family",
+    overview: "Escape into the cool clouds of Tamil Nadu's premier hill stations with panoramic tea estate overlooks, waterfalls, and peaceful mountain lakes.",
     highlights: [
-      "Ubud cultural tour: Tegalalang rice terrace & jungle swing",
-      "Ulun Danu Beratan temple on Lake Beratan & Handara Gate",
-      "Uluwatu clifftop temple at golden sunset with Kecak fire dance",
-      "Private pool villa upgrade options for couples",
-      "Dedicated private car & English-speaking local driver"
+      "Nilgiri Mountain Railway UNESCO toy train joy ride",
+      "Ooty Botanical Garden & Doddabetta highest peak",
+      "Kodaikanal Lake pedal boating & Coakers Walk misty view",
+      "Pillar Rocks, Pine Forest & Silver Cascade Waterfall",
+      "Comfortable private hill-expert chauffeur drive"
     ],
-    inclusions: ["Private Villa / 4-Star Resort", "Private Car with Driver", "Daily Breakfast", "Entry Tickets & Swings"]
+    inclusions: ["Scenic Hill Resorts", "Private AC Vehicle Throughout", "Daily Breakfast", "Sightseeing Transfers"]
   },
-  malaysia: {
-    title: "Malaysia Getaway",
-    destination: "Malaysia 🇲🇾",
-    duration: "4 Nights / 5 Days",
-    price: "₹22,999",
-    oldPrice: "₹28,000",
-    discount: "18% OFF",
-    image: "images/malaysia.jpg",
-    bestFor: "Families • Couples • First-Time International Travellers",
-    overview: "Where modern cityscapes meet lush natural rainforests. Experience Kuala Lumpur’s futuristic towers, Batu Caves, and cool Genting Highlands.",
+  'chola-heritage': {
+    title: "Grand Chola: Thanjavur & Trichy Heritage",
+    destination: "Chola Temples Circuit 🏛️",
+    duration: "2 Nights / 3 Days",
+    price: "₹8,999",
+    oldPrice: "₹11,500",
+    discount: "Special Deal",
+    image: "images/destinations/thanjavur_temple.jpg",
+    bestFor: "Temple Architecture • History • Family",
+    overview: "A world-heritage journey through the architectural masterworks of the Chola and Nayaka empires.",
     highlights: [
-      "Kuala Lumpur City tour & photo stop at iconic Petronas Twin Towers",
-      "Visit colorful Batu Caves and Murugan statue",
-      "Scenic cable car ride up to Genting Highlands mountain resort",
-      "Putrajaya administrative modern architecture city tour",
-      "Full visa assistance & airport pick and drop"
+      "UNESCO Brihadisvara Big Temple architectural tour",
+      "Thanjavur Maratha Palace & Art Gallery bronzes",
+      "Tiruchirappalli Rockfort temple 437-step panoramic view",
+      "Srirangam Ranganathaswamy Temple massive 21-gopuram complex",
+      "Experienced chauffeur with deep knowledge of temple timings"
     ],
-    inclusions: ["Central Kuala Lumpur Hotel", "Genting Cable Car Ticket", "Private Sightseeing Transfers", "Daily Breakfast"]
+    inclusions: ["Heritage Stays", "Private AC Cab from Madurai", "Temple Guide Assistance", "Daily Breakfast"]
   },
   kerala: {
     title: "Kerala Backwaters & Hills",

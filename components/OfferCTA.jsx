@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { getWhatsAppUrl } from '../lib/siteConfig';
 
 export default function OfferCTA({ 
   badge = "UNBEATABLE BEST PRICE GUARANTEE",
@@ -11,6 +12,8 @@ export default function OfferCTA({
   secondaryBtnText = "Plan Custom Route →",
   secondaryBtnHref = "/contact"
 }) {
+  const whatsappUrl = getWhatsAppUrl(waText);
+
   return (
     <div className="vehicle-cta-banner">
       <div className="vehicle-cta-content">
@@ -20,7 +23,7 @@ export default function OfferCTA({
       </div>
       <div className="vehicle-cta-actions">
         <a 
-          href={`https://wa.me/919876543210?text=${encodeURIComponent(waText)}`}
+          href={whatsappUrl}
           target="_blank" 
           rel="noopener noreferrer" 
           className="btn-feat-pkg-wa"

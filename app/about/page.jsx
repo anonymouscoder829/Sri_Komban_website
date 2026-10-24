@@ -17,7 +17,7 @@ export default function AboutPage() {
           </div>
           <h1 className="tourist-page-title">We Don't Just Plan Trips. We Help Create Stories.</h1>
           <p className="tourist-page-subtitle">
-            Every traveller has a different reason to go. A family holiday. A romantic escape. A trip with friends. A long-awaited international adventure. Whatever your reason, your journey should feel personal.
+            Every traveller has a different reason to go. A family holiday. A romantic escape. A trip with friends. A sacred temple pilgrimage or mountain getaway. Whatever your reason, your journey should feel personal.
           </p>
           <div className="section-cta-center" style={{ marginTop: '20px' }}>
             <Link href="/contact" className="btn-tourist-primary">
@@ -43,7 +43,7 @@ export default function AboutPage() {
                 Based in Madurai, Tamil Nadu, we help individuals, couples, families and groups explore travel opportunities that match their plans, preferences and travel style.
               </p>
               <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '24px' }}>
-                From Indian getaways like Andaman and Goa to international destinations such as Thailand, Malaysia and Bali, we're here to help turn your travel idea into a journey.
+                From sacred temple circuits in Madurai, Rameswaram, and Thanjavur to misty hill stations like Ooty, Kodaikanal, and Munnar backwaters, we're here to help turn your travel idea into a memorable journey.
               </p>
               <Link href="/destinations" className="btn-tourist-primary">
                 Explore Our Destinations →
@@ -77,8 +77,8 @@ export default function AboutPage() {
             </div>
 
             <div className="why-card">
-              <h3 className="why-title">Domestic &amp; International Travel</h3>
-              <p className="why-desc">Explore travel options across India and international destinations.</p>
+              <h3 className="why-title">Tamil Nadu &amp; South India Tours</h3>
+              <p className="why-desc">Explore tailored travel packages and sanitized fleet rentals across Tamil Nadu, Kerala, and beyond.</p>
             </div>
 
             <div className="why-card">
@@ -95,7 +95,7 @@ export default function AboutPage() {
           <OfferCTA 
             badge="BEST VALUE TRAVEL PARTNER"
             title="Wherever You Want to Go, We Can Do That at the Best Offer!"
-            desc="Whether planning a romantic honeymoon, an international vacation, or a family holiday from Madurai, enjoy personalized itineraries and our best price guarantee."
+            desc="Whether planning a hill station honeymoon, a sacred temple pilgrimage, or a family holiday from Madurai, enjoy personalized itineraries and our best price guarantee."
             waText="Hi Sri Komban Travels, I'm interested in planning a trip at the best offer!"
             secondaryBtnText="Explore Tour Packages →"
             secondaryBtnHref="/packages"
