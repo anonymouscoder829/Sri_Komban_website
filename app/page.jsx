@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import HeroSection from '../components/HeroSection';
 import OfferCTA from '../components/OfferCTA';
-import { southIndiaDestinations } from '../lib/destinationsData';
+import { southIndiaDestinations, topFiveDestinations } from '../lib/destinationsData';
 import { vehiclesFleet } from '../lib/vehiclesData';
 import { homeGalleryItems } from '../lib/galleryData';
 import { homeTestimonials } from '../lib/testimonialsData';
@@ -22,12 +22,7 @@ export default function HomePage() {
     notes: ''
   });
   const [submitted, setSubmitted] = useState(false);
-  const [destCategory, setDestCategory] = useState('All');
   const [activeHomeVehImages, setActiveHomeVehImages] = useState({});
-
-  const visibleDestinations = destCategory === 'All' 
-    ? southIndiaDestinations 
-    : southIndiaDestinations.filter(d => d.category === destCategory);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -70,44 +65,20 @@ export default function HomePage() {
       <HeroSection />
 
       {/* ========================================================
-          SECTION 2 — TOP DESTINATIONS
+          SECTION 2 — TOP DESTINATIONS (TOP 5 PLACES ONLY)
           ======================================================== */}
       <section className="tourist-section top-dest-section" id="destinations">
         <div className="tourist-container">
-          <div className="top-dest-head-wrap">
-            <h2 className="top-dest-main-title">Top Destinations</h2>
-            <p className="top-dest-main-desc">
-              Ancient temple towns, historic coastal monuments, cool hill stations, and tranquil backwaters across Tamil Nadu &amp; Kerala.
-            </p>
-          </div>
-
-          {/* Filter Bar with Pills and Explore Button */}
-          <div className="dest-filter-bar">
-            <div className="dest-filter-pills">
-              <button
-                type="button"
-                className={`dest-pill-btn ${destCategory === 'All' ? 'active' : ''}`}
-                onClick={() => setDestCategory('All')}
-              >
-                All Places ({southIndiaDestinations.length})
-              </button>
-              <button
-                type="button"
-                className={`dest-pill-btn ${destCategory === 'Tamil Nadu' ? 'active' : ''}`}
-                onClick={() => setDestCategory('Tamil Nadu')}
-              >
-                Tamil Nadu (10)
-              </button>
-              <button
-                type="button"
-                className={`dest-pill-btn ${destCategory === 'Kerala' ? 'active' : ''}`}
-                onClick={() => setDestCategory('Kerala')}
-              >
-                Kerala (5)
-              </button>
+          <div className="top-dest-head-wrap dest-header-flex">
+            <div>
+              <span className="dest-subpill-tag">TOP 5 HANDPICKED HIGHLIGHTS</span>
+              <h2 className="top-dest-main-title">Top Destinations</h2>
+              <p className="top-dest-main-desc">
+                From ancient temple gopurams to misty hill stations — experience the premier highlights of South India.
+              </p>
             </div>
 
-            <Link href="/destinations" className="btn-explore-all-pill">
+            <Link href="/destinations" className="btn-explore-all-pill" id="exploreAllDestinationsHeaderBtn">
               <span>Explore all destinations</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="explore-all-arrow">
                 <path d="M5 12h14M12 5l7 7-7 7" />
@@ -115,9 +86,9 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Cards Grid */}
-          <div className="top-dest-cards-grid">
-            {visibleDestinations.map((dest) => (
+          {/* Cards Grid — Best 5 Places */}
+          <div className="top-dest-cards-grid top-5-dest-grid">
+            {topFiveDestinations.map((dest) => (
               <div 
                 key={dest.id} 
                 className="top-dest-card" 
@@ -140,6 +111,19 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Explore all destinations footer banner */}
+          <div className="top-dest-explore-footer">
+            <p className="top-dest-explore-note">
+              Looking for Mahabalipuram, Thanjavur, Kanyakumari, Alleppey backwaters, or Wayanad?
+            </p>
+            <Link href="/destinations" className="btn-tourist-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+              <span>Explore All {southIndiaDestinations.length} Destinations</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ width: '18px', height: '18px' }}>
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>

@@ -38,16 +38,19 @@ export default function Header() {
 
           {/* Desktop Navigation Links */}
           <nav className="shanti-links-wrap" id="mainNav" aria-label="Main Navigation">
-            {siteConfig.navLinks.map((item) => (
-              <Link 
-                key={item.href}
-                href={item.href} 
-                className={`shanti-nav-item ${pathname === item.href ? 'active' : ''}`}
-              >
-                <span>{item.label}</span>
-                {pathname === item.href && <span className="active-nav-line" />}
-              </Link>
-            ))}
+            {siteConfig.navLinks.map((item) => {
+              const isActive = pathname === item.href || (item.href === '/destinations' && pathname === '/places');
+              return (
+                <Link 
+                  key={item.href}
+                  href={item.href} 
+                  className={`shanti-nav-item ${isActive ? 'active' : ''}`}
+                >
+                  <span>{item.label}</span>
+                  {isActive && <span className="active-nav-line" />}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right Action Elements */}
