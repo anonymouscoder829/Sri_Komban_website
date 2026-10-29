@@ -11,28 +11,7 @@ import { homeTestimonials } from '../lib/testimonialsData';
 import { siteConfig, getWhatsAppUrl } from '../lib/siteConfig';
 
 export default function HomePage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    destination: 'Madurai',
-    travelDate: '',
-    travelers: '2 Adults',
-    tripType: 'Honeymoon / Couple',
-    notes: ''
-  });
-  const [submitted, setSubmitted] = useState(false);
   const [activeHomeVehImages, setActiveHomeVehImages] = useState({});
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.phone) {
-      alert('Please fill in your name and phone number.');
-      return;
-    }
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 8000);
-  };
 
   const handleWhatsAppInquiry = (planName) => {
     const message = `Hi ${siteConfig.shortName}, I'm interested in planning a trip / hiring a cab for ${planName}. Please share details!`;
@@ -44,16 +23,8 @@ export default function HomePage() {
     window.open(getWhatsAppUrl(message), '_blank');
   };
 
-  const handleFormWhatsApp = () => {
-    const message = `*Trip Enquiry — ${siteConfig.shortName}*\n\n` +
-      `*Name:* ${formData.name || 'Traveler'}\n` +
-      `*Phone:* ${formData.phone || 'N/A'}\n` +
-      `*Email:* ${formData.email || 'N/A'}\n` +
-      `*Destination:* ${formData.destination}\n` +
-      `*Travel Date:* ${formData.travelDate || 'Flexible'}\n` +
-      `*Travellers:* ${formData.travelers}\n` +
-      `*Trip Type:* ${formData.tripType}\n` +
-      `*Notes:* ${formData.notes || 'Looking for trip options.'}`;
+  const handleGeneralWhatsApp = () => {
+    const message = `Hi ${siteConfig.shortName}, I'm planning a trip from Madurai and would like to get package options and a tariff quote. Please assist me!`;
     window.open(getWhatsAppUrl(message), '_blank');
   };
 
@@ -316,6 +287,7 @@ export default function HomePage() {
           <div className="contact-card-grid">
             {/* Left Col: Contact Info & Support */}
             <div className="contact-details-box">
+              <span className="contact-badge-label">OFFICE &amp; DIRECT REACH</span>
               <h3 className="contact-box-title">{siteConfig.name}</h3>
               <p className="contact-box-desc">
                 Planning a trip from Madurai? You don't need to have the entire trip figured out before contacting us. Tell us your budget, travel dates, who you're travelling with and the kind of experience you want. We'll help you explore the possibilities.
@@ -323,6 +295,7 @@ export default function HomePage() {
 
               <div className="contact-info-list">
                 <div className="contact-info-row">
+                  <div className="contact-icon-circle">📍</div>
                   <div>
                     <strong>Location</strong>
                     <p>{siteConfig.contact.locationFull}</p>
@@ -330,15 +303,17 @@ export default function HomePage() {
                 </div>
 
                 <div className="contact-info-row">
+                  <div className="contact-icon-circle">📞</div>
                   <div>
-                    <strong>Phone</strong>
+                    <strong>Phone &amp; 24/7 Helpline</strong>
                     <p><a href={`tel:${siteConfig.contact.phoneTel}`}>{siteConfig.contact.phoneDisplay}</a></p>
                   </div>
                 </div>
 
                 <div className="contact-info-row">
+                  <div className="contact-icon-circle">✉️</div>
                   <div>
-                    <strong>Email</strong>
+                    <strong>Email Address</strong>
                     <p><a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a></p>
                   </div>
                 </div>
@@ -346,146 +321,65 @@ export default function HomePage() {
 
               <div className="contact-wa-action">
                 <p>Your Next Story Could Start With One Message.</p>
-                <button onClick={handleFormWhatsApp} className="btn-tourist-wa-lg">
+                <button onClick={handleGeneralWhatsApp} className="btn-tourist-wa-lg">
                   Send Your Enquiry on WhatsApp →
                 </button>
               </div>
             </div>
 
-            {/* Right Col: Plan Your Trip Form */}
-            <div className="contact-form-box">
-              <h3 className="contact-box-title">Plan Your Trip</h3>
+            {/* Right Col: Why Plan With Us & Quick Actions */}
+            <div className="contact-details-box">
+              <span className="contact-badge-label">SEAMLESS TRIP PLANNING</span>
+              <h3 className="contact-box-title">Why Plan Your Journey With Us?</h3>
               <p className="contact-box-desc">
-                Tell us a little about your journey. Fill in the form below and share your travel requirements. The more we know, the better we can understand what you're looking for.
+                From luxury outstation cabs to all-inclusive holidays, we tailor every detail to your schedule, preferences, and comfort.
               </p>
 
-              {submitted && (
-                <div className="contact-success-notice">
-                  Thank you, {formData.name}! Your enquiry has been received. Our Madurai team will get in touch with you shortly.
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="tourist-form">
-                <div className="form-row-2">
-                  <div className="form-field">
-                    <label>Full Name *</label>
-                    <input 
-                      type="text" 
-                      required 
-                      placeholder="Enter your name" 
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="form-input"
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label>Phone Number *</label>
-                    <input 
-                      type="tel" 
-                      required 
-                      placeholder="Enter your phone number" 
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="form-input"
-                    />
+              <div className="contact-info-list">
+                <div className="contact-info-row">
+                  <div className="contact-icon-circle">🗺️</div>
+                  <div>
+                    <strong>Customized Tour Itineraries</strong>
+                    <p>Personalized day-wise plans for couples, families, and group getaways with complete schedule flexibility.</p>
                   </div>
                 </div>
 
-                <div className="form-row-2">
-                  <div className="form-field">
-                    <label>Email Address</label>
-                    <input 
-                      type="email" 
-                      placeholder="Enter your email address" 
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="form-input"
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label>Where Do You Want to Go? *</label>
-                    <select 
-                      value={formData.destination}
-                      onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-                      className="form-input"
-                    >
-                      <option value="Madurai">Madurai</option>
-                      <option value="Ooty">Ooty (Udhagamandalam)</option>
-                      <option value="Kodaikanal">Kodaikanal</option>
-                      <option value="Rameswaram & Dhanushkodi">Rameswaram & Dhanushkodi</option>
-                      <option value="Kanyakumari">Kanyakumari</option>
-                      <option value="Munnar">Munnar</option>
-                      <option value="Alleppey">Alleppey (Alappuzha)</option>
-                      <option value="Thanjavur">Thanjavur (Big Temple)</option>
-                      <option value="Mahabalipuram">Mahabalipuram</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Chennai">Chennai</option>
-                      <option value="Tiruchirappalli">Tiruchirappalli (Trichy)</option>
-                      <option value="Wayanad">Wayanad</option>
-                      <option value="Kochi">Kochi</option>
-                      <option value="Thekkady">Thekkady</option>
-                      <option value="Other">Other South India Circuit</option>
-                    </select>
+                <div className="contact-info-row">
+                  <div className="contact-icon-circle">🚗</div>
+                  <div>
+                    <strong>Verified Private Fleet</strong>
+                    <p>Company-owned, sanitized Innova Crysta, XUV 3XO, and Force Urbania driven by verified local chauffeurs.</p>
                   </div>
                 </div>
 
-                <div className="form-row-2">
-                  <div className="form-field">
-                    <label>Preferred Travel Date</label>
-                    <input 
-                      type="date" 
-                      value={formData.travelDate}
-                      onChange={(e) => setFormData({ ...formData, travelDate: e.target.value })}
-                      className="form-input"
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label>Number of Travellers</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g. 2 Adults, 1 Child" 
-                      value={formData.travelers}
-                      onChange={(e) => setFormData({ ...formData, travelers: e.target.value })}
-                      className="form-input"
-                    />
+                <div className="contact-info-row">
+                  <div className="contact-icon-circle">💳</div>
+                  <div>
+                    <strong>Honest &amp; Transparent Tariff</strong>
+                    <p>Clear all-inclusive quotes with driver allowance, toll, and parking clearly explained upfront.</p>
                   </div>
                 </div>
+              </div>
 
-                <div className="form-field">
-                  <label>What Kind of Trip Are You Planning?</label>
-                  <select 
-                    value={formData.tripType}
-                    onChange={(e) => setFormData({ ...formData, tripType: e.target.value })}
-                    className="form-input"
+              <div className="contact-wa-action" style={{ background: '#f8fafc', borderColor: '#e2e8f0' }}>
+                <p>Ready to discuss your itinerary or get an instant quote?</p>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <a 
+                    href={`tel:${siteConfig.contact.phoneTel}`} 
+                    className="btn-tourist-primary-lg"
+                    style={{ textAlign: 'center', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
                   >
-                    <option value="Temple Pilgrimage Circuit">Temple Pilgrimage Circuit</option>
-                    <option value="Family Holiday">Family Holiday</option>
-                    <option value="Hill Station Getaway">Hill Station Getaway</option>
-                    <option value="Honeymoon / Couple">Honeymoon / Couple</option>
-                    <option value="Friends / Group">Friends / Group</option>
-                    <option value="Outstation Cab Rental">Outstation Cab Rental</option>
-                    <option value="Customized Trip">Customized Trip</option>
-                    <option value="Other">Other</option>
-                  </select>
+                    Call Us Now
+                  </a>
+                  <Link 
+                    href="/packages" 
+                    className="btn-tourist-wa-sub"
+                    style={{ textAlign: 'center', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}
+                  >
+                    Explore Packages →
+                  </Link>
                 </div>
-
-                <div className="form-field">
-                  <label>Tell Us About Your Trip</label>
-                  <textarea 
-                    rows="3" 
-                    placeholder="Share your requirements, preferences or anything you'd like us to know..."
-                    value={formData.notes}
-                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="form-input"
-                  />
-                </div>
-
-                <div className="form-submit-row">
-                  <button type="submit" className="btn-tourist-primary-lg">
-                    Start Planning My Trip →
-                  </button>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
