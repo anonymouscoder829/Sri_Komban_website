@@ -310,13 +310,6 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="contact-info-row">
-                  <div className="contact-icon-circle">✉️</div>
-                  <div>
-                    <strong>Email Address</strong>
-                    <p><a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a></p>
-                  </div>
-                </div>
               </div>
 
               <div className="contact-wa-action">

@@ -86,12 +86,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="contact-info-row">
-                  <div>
-                    <strong>Email Address</strong>
-                    <p><a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a></p>
-                  </div>
-                </div>
               </div>
 
               {/* Not Sure Where to Go? */}
